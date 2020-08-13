@@ -5,33 +5,97 @@
  */
 package entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.io.Serializable;
+import javax.persistence.*;
 
 /**
  *
- * @author Everton
+ * @author roger
  */
-public class Veiculo {
-    
+@Entity
+@Table(name = "cad_veiculo")
+
+public class Veiculo implements Serializable {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_veiculo")
+    private int id_veiculo;
+
+    @Column(name = "placa")
+    private String placa;
+
+    @Column(name = "kml")
+    private double kml;
+
+    @Column(name = "valor_disp_km")
+    private double valor_disp_km;
+
+    @Column(name = "marca")
+    private String marca;
+
+    @Column(name = "modelo")
+    private String modelo;
+
+    @Column(name = "cor")
+    private String cor;
+
+    public int getId_veiculo() {
+        return id_veiculo;
+    }
+
+    public void setId_veiculo(int id_veiculo) {
+        this.id_veiculo = id_veiculo;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public double getKml() {
+        return kml;
+    }
+
+    public void setKml(double kml) {
+        this.kml = kml;
+    }
+
+    public double getValor_disp_km() {
+        return valor_disp_km;
+    }
+
+    public void setValor_disp_km(double valor_disp_km) {
+        this.valor_disp_km = valor_disp_km;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
     
-    private String data_viagem;
-    private String valor_viagem;
-    private String km_viagem;
-    private String horas_viagem;
-    private String id_veiculo;
-    private String id_motorista;
-    private String id_grupo;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    
     
 }

@@ -46,5 +46,13 @@ Contributor(s):
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/caronex</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">postgres</property>
+        
+        <mapping class="entidades.Veiculo"/>
+        <mapping class="entidades.a"/>
+        <mapping class="entidades.a"/>
+        <mapping class="entidades.a"/>
+        <mapping class="entidades.ao"/>
+        <mapping class="entidades.a"/>
+        
     </session-factory>
 </hibernate-configuration>
