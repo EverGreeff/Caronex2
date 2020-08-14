@@ -41,6 +41,11 @@ public class TelaLogin extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -59,8 +64,6 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1.setText("Login:");
 
         jLabel2.setText("Senha:");
-
-        pfSenha.setText("jPasswordField1");
 
         jButton3.setText("AcessoRapido");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -124,9 +127,10 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoSair
 
     private void BotaoLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLogin
-        if (!tfLogin.getText().equals("") && !tfLogin.getText().equals("")) {
+        if (!tfLogin.getText().equals("") && !String.valueOf(pfSenha.getPassword()).equals("")) {
             try {
-                if (Validacoes.logar(tfLogin.getText(), Criptografia.criptoMD5(pfSenha.getText()))) {
+                JOptionPane.showMessageDialog(null, String.valueOf(pfSenha.getPassword()));
+                if (Validacoes.logar(tfLogin.getText(), Criptografia.criptoMD5(String.valueOf(pfSenha.getPassword())))) {
                     Main tp = new Main();
                     tp.setVisible(true);
                     this.dispose();
@@ -147,6 +151,10 @@ public class TelaLogin extends javax.swing.JFrame {
         mn.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BotaoRapido
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

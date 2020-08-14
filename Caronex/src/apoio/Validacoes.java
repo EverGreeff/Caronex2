@@ -22,7 +22,7 @@ public class Validacoes {
         boolean pas = false;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Login> resultado = new ArrayList();
-        String sql = "FROM login";
+        String sql = "FROM Login";
         try {
             org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
