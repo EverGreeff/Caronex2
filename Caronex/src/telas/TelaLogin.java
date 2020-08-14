@@ -19,8 +19,9 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon.jpg")).getImage());
         this.setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -32,13 +33,16 @@ public class TelaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         tfLogin = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         pfSenha = new javax.swing.JPasswordField();
         jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -47,23 +51,39 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Login");
+        jPanel1.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("Login:");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(50, 190, 60, 24);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/login.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoLogin(evt);
             }
         });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(340, 240, 50, 40);
 
-        jButton2.setText("Sair");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/power.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoSair(evt);
             }
         });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(400, 240, 50, 40);
+        jPanel1.add(tfLogin);
+        tfLogin.setBounds(110, 190, 120, 30);
 
-        jLabel1.setText("Login:");
-
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Senha:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(250, 190, 70, 24);
+        jPanel1.add(pfSenha);
+        pfSenha.setBounds(320, 190, 130, 30);
 
         jButton3.setText("AcessoRapido");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -71,78 +91,55 @@ public class TelaLogin extends javax.swing.JFrame {
                 BotaoRapido(evt);
             }
         });
+        jPanel1.add(jButton3);
+        jButton3.setBounds(334, 10, 130, 32);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CaronexLogo.png"))); // NOI18N
+        jLabel3.setPreferredSize(new java.awt.Dimension(479, 344));
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(0, -10, 480, 350);
+
+        jLabel4.setFont(new java.awt.Font("Myanmar Text", 0, 14)); // NOI18N
+        jLabel4.setText("Senha:");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(250, 210, 50, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfLogin)
-                            .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                        .addContainerGap(141, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(81, 81, 81)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(25, 25, 25))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoSair(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSair
-         this.dispose();
+        HibernateUtil.getSessionFactory().close();
+        this.dispose();
     }//GEN-LAST:event_BotaoSair
 
     private void BotaoLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLogin
         if (!tfLogin.getText().equals("") && !String.valueOf(pfSenha.getPassword()).equals("")) {
             try {
-                JOptionPane.showMessageDialog(null, String.valueOf(pfSenha.getPassword()));
                 if (Validacoes.logar(tfLogin.getText(), Criptografia.criptoMD5(String.valueOf(pfSenha.getPassword())))) {
                     Main tp = new Main();
                     tp.setVisible(true);
                     this.dispose();
-
                 } else {
                     JOptionPane.showMessageDialog(null, "Verifique se a Senha ou o Login estão corretos!", "Login ou Senha incorretos!", JOptionPane.WARNING_MESSAGE);
+                    tfLogin.requestFocus();
                 }
             } catch (Exception e) {
                 System.out.println("erro" + e);
             }
         } else {
             JOptionPane.showMessageDialog(null, "O preenchimento é obrigatório para Logar!");
+            tfLogin.requestFocus();
         }
     }//GEN-LAST:event_BotaoLogin
 
@@ -153,7 +150,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoRapido
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
+        HibernateUtil.getSessionFactory().close();
     }//GEN-LAST:event_formWindowClosed
 
     /**
@@ -197,6 +194,9 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JTextField tfLogin;
     // End of variables declaration//GEN-END:variables

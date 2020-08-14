@@ -32,7 +32,7 @@ public class Projeto {
         TelaLogin tela = new TelaLogin();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
-
+        
     }
 
 }
