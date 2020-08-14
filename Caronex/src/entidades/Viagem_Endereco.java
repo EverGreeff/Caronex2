@@ -18,10 +18,10 @@ import javax.persistence.*;
 public class Viagem_Endereco implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "viagens_id_viagem")
     private int viagens_id_viagem;
-
+    
+    @Id
     @Column(name = "endereco_id_end")
     private String endereco_id_end;
 

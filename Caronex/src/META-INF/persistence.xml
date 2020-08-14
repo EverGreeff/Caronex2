@@ -3,7 +3,7 @@
     <persistence-unit name="CaronexPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/PA"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/caronex"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.password" value="postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>

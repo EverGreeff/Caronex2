@@ -54,6 +54,8 @@ Contributor(s):
     <mapping class="entidades.Veiculo"/>
     <mapping class="entidades.Viagem"/>
     <mapping class="entidades.Viagem_Endereco"/>
-    <mapping package="entidades"/>
+    <mapping class="telas.Main"/>
+    <mapping class="telas.TelaLogin"/>
+    <mapping class="project.Projeto"/>
   </session-factory>
 </hibernate-configuration>

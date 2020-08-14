@@ -18,10 +18,10 @@ import javax.persistence.*;
 public class Grupo_Pessoa implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_grupo")
     private int id_grupo;
-
+    
+    @Id
     @Column(name = "id_pessoa")
     private int id_pessoa;
 
@@ -40,7 +40,5 @@ public class Grupo_Pessoa implements Serializable {
     public void setId_pessoa(int id_pessoa) {
         this.id_pessoa = id_pessoa;
     }
-
-
 
 }
