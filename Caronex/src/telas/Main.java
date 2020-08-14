@@ -16,6 +16,8 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        
     }
 
     /**
@@ -27,21 +29,109 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jmCadastros = new javax.swing.JMenu();
+        jimPessoas = new javax.swing.JMenuItem();
+        jimGrupos = new javax.swing.JMenuItem();
+        jimUsuarios = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jmControles = new javax.swing.JMenu();
+        jimInfoGrupo = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jimRelatorio1 = new javax.swing.JMenuItem();
+        jimRelatorio2 = new javax.swing.JMenuItem();
+        jmAjuda = new javax.swing.JMenu();
+        jimSobre = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CaronexLogo.png"))); // NOI18N
+
+        jmCadastros.setText("Cadastros");
+
+        jimPessoas.setText("Pessoas");
+        jimPessoas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimPessoasActionPerformed(evt);
+            }
+        });
+        jmCadastros.add(jimPessoas);
+
+        jimGrupos.setText("Grupos");
+        jimGrupos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimGruposActionPerformed(evt);
+            }
+        });
+        jmCadastros.add(jimGrupos);
+
+        jimUsuarios.setText("Usuarios");
+        jmCadastros.add(jimUsuarios);
+
+        jMenuItem10.setText("Next");
+        jmCadastros.add(jMenuItem10);
+
+        jMenuBar1.add(jmCadastros);
+
+        jmControles.setText("Controles");
+
+        jimInfoGrupo.setText("Info Grupo");
+        jmControles.add(jimInfoGrupo);
+
+        jMenuItem5.setText("Next");
+        jmControles.add(jMenuItem5);
+
+        jMenuItem6.setText("Next");
+        jmControles.add(jMenuItem6);
+
+        jMenuBar1.add(jmControles);
+
+        jMenu3.setText("Relatorios");
+
+        jimRelatorio1.setText("Relatorio 1");
+        jMenu3.add(jimRelatorio1);
+
+        jimRelatorio2.setText("Relatorio 2");
+        jMenu3.add(jimRelatorio2);
+
+        jMenuBar1.add(jMenu3);
+
+        jmAjuda.setText("Ajuda");
+
+        jimSobre.setText("Sobre");
+        jmAjuda.add(jimSobre);
+
+        jMenuBar1.add(jmAjuda);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jimGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimGruposActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jimGruposActionPerformed
+
+    private void jimPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPessoasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jimPessoasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +169,21 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jimGrupos;
+    private javax.swing.JMenuItem jimInfoGrupo;
+    private javax.swing.JMenuItem jimPessoas;
+    private javax.swing.JMenuItem jimRelatorio1;
+    private javax.swing.JMenuItem jimRelatorio2;
+    private javax.swing.JMenuItem jimSobre;
+    private javax.swing.JMenuItem jimUsuarios;
+    private javax.swing.JMenu jmAjuda;
+    private javax.swing.JMenu jmCadastros;
+    private javax.swing.JMenu jmControles;
     // End of variables declaration//GEN-END:variables
 }
