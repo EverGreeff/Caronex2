@@ -46,6 +46,7 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/caronex</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">postgres</property>
+    <mapping class="apoio.Pesquisas"/>
     <mapping class="entidades.Cidade"/>
     <mapping class="entidades.Endereco"/>
     <mapping class="entidades.Grupo_Pessoa"/>
@@ -56,6 +57,11 @@ Contributor(s):
     <mapping class="entidades.Viagem_Endereco"/>
     <mapping class="telas.Main"/>
     <mapping class="telas.TelaLogin"/>
+    <mapping class="telas.IfrCadPessoa"/>
+    <mapping class="telas.IfrCadGrupo"/>
+    <mapping class="telas.Main"/>
+    <mapping class="telas.IfrGrupoPessoa"/>
+    <mapping class="telas.DlgPessoas"/>
     <mapping class="project.Projeto"/>
   </session-factory>
 </hibernate-configuration>
