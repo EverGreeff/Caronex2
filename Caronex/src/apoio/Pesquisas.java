@@ -25,7 +25,7 @@ public class Pesquisas {
     public static void PesquisaPessoa(JTable tabela, String nome) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Pessoa> resultado = new ArrayList();
-        String sql = "FROM cad_pessoa "
+        String sql = "FROM Pessoa "
                 + "WHERE nome LIKE '%" + nome + "%' "
                 + "ORDER BY nome";
         //padroniza a JTable
