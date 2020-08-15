@@ -5,7 +5,9 @@
  */
 package telas;
 
+import apoio.Formatacao;
 import apoio.HibernateUtil;
+import apoio.Validacao;
 import entidades.Pessoa;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -24,6 +26,11 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
      */
     public IfrCadPessoa() {
         initComponents();
+        
+        // aplica mascaras
+        Formatacao.formatarData(ftxtDataNasc);
+        Formatacao.formatarCpf(ftxtCpf);
+        Formatacao.formatarTelefone(ftxtTelefone);
     }
     
     private boolean verificaIdade() {
@@ -544,6 +551,56 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         verificaIdade();
     }//GEN-LAST:event_txtIdadeFocusLost
 
+    public boolean validaInsert() {
+        String replaced = "";
+        String errors = "";
+        
+        //Nome
+        if (txtNome.getText().length() == 0) {
+            errors += "Preencha o nome - ";
+        }
+        
+        //E-mail
+//        if (ftxtEmail.getText().length() == 0) {
+//            errors += "Preencha o e-mail - ";
+//            //existe validador de e-mail??
+//        }
+        
+        //Telefone
+        if (Validacao.validarTelefone(ftxtTelefone)) {
+        } else {
+            errors += "Telefone Inválido - ";
+        }
+       
+        //Data
+        replaced = "";
+        replaced = ftxtDataNasc.getText().replace("_", "");
+        if (replaced.length() == 10) {
+            if (Validacao.validarDataFormatada(ftxtDataNasc.getText())) {
+                //data está ok
+            } else {
+                errors += "Data Inválida - ";
+            }
+        } else {
+            errors += "Data Inválida - ";
+        }
+        
+        //CPF
+        replaced = "";
+        replaced = ftxtCpf.getText().replace("_", "");
+        if (replaced.length() == 14) {
+            if (Validacao.validarCPF(Formatacao.removerFormatacao(ftxtCpf.getText()))) {
+                //cpf válido
+            } else {
+                errors += "CPF Inválido - ";
+            }
+        } else {
+            errors += "CPF Inválido - ";
+        }
+        
+        return errors.equals("");
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -598,3 +655,5 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
+
+
