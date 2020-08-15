@@ -108,4 +108,45 @@ public class Pesquisas {
         }
     }
 
+    public static void PesquisaGrupo(JTable tabela, String nomeGrupo) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Grupo> resultado = new ArrayList();
+        String sql = "FROM Grupo "
+                + "WHERE placa LIKE '%" + nomeGrupo + "%' "
+                + "ORDER BY placa";
+        //padroniza a JTable
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tabela.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(6).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(140);
+        tabela.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
+        tabela.getColumnModel().getColumn(6).setPreferredWidth(50);
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        //fim Jtable
+        //começa IO
+        try {
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+            for (int i = 0; i < resultado.size(); i++) {
+                Grupo grupo = resultado.get(i);
+                modelo.addRow(new Object[]{
+                    grupo.getId_grupo(),
+                    grupo.getNome_grupo(),
+                    grupo.getStatus(),
+                    grupo.getId_admin()
+                });
+            }
+        } catch (HibernateException e) {
+
+        } finally {
+            sessao.close();
+        }
+    }
+
 }

@@ -5,19 +5,24 @@
  */
 package telas;
 
+import apoio.*;
+
 /**
  *
  * @author roger
  */
 public class Main extends javax.swing.JFrame {
 
+    GerenciarJanelas gerenciarJanelas;
+
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        this.gerenciarJanelas = new GerenciarJanelas(dktInicial);
         this.setExtendedState(MAXIMIZED_BOTH);
-        
+
     }
 
     /**
@@ -29,6 +34,7 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dktInicial = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmCadastros = new javax.swing.JMenu();
@@ -53,6 +59,23 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CaronexLogo.png"))); // NOI18N
 
+        dktInicial.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout dktInicialLayout = new javax.swing.GroupLayout(dktInicial);
+        dktInicial.setLayout(dktInicialLayout);
+        dktInicialLayout.setHorizontalGroup(
+            dktInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dktInicialLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        dktInicialLayout.setVerticalGroup(
+            dktInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dktInicialLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         jmCadastros.setText("Cadastros");
 
         jimPessoas.setText("Pessoas");
@@ -72,6 +95,11 @@ public class Main extends javax.swing.JFrame {
         jmCadastros.add(jimGrupos);
 
         jimUsuarios.setText("Usuarios");
+        jimUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimUsuariosActionPerformed(evt);
+            }
+        });
         jmCadastros.add(jimUsuarios);
 
         jMenuItem10.setText("Next");
@@ -82,6 +110,11 @@ public class Main extends javax.swing.JFrame {
         jmControles.setText("Controles");
 
         jimInfoGrupo.setText("Info Grupo");
+        jimInfoGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimInfoGrupoActionPerformed(evt);
+            }
+        });
         jmControles.add(jimInfoGrupo);
 
         jMenuItem5.setText("Next");
@@ -115,23 +148,36 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dktInicial)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(dktInicial)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jimGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimGruposActionPerformed
-        // TODO add your handling code here:
+        GerenciarJanelas.abreJanela(IfrCadGrupo.getInstancia());
     }//GEN-LAST:event_jimGruposActionPerformed
 
     private void jimPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPessoasActionPerformed
-        // TODO add your handling code here:
+        //GerenciarJanelas.abreJanela(IfrCadPessoa.getInstancia());
     }//GEN-LAST:event_jimPessoasActionPerformed
+
+    private void jimUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimUsuariosActionPerformed
+        //GerenciarJanelas.abreJanela(IfrCadUsuario.getInstancia());
+    }//GEN-LAST:event_jimUsuariosActionPerformed
+
+    private void jimInfoGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimInfoGrupoActionPerformed
+        //GerenciarJanelas.abreJanela(IfrCadGrupoPessoa.getInstancia());
+    }//GEN-LAST:event_jimInfoGrupoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,6 +215,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane dktInicial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;

@@ -9,7 +9,6 @@ package apoio;
  *
  * @author roger
  */
-
 import entidades.Login;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,8 @@ public class Validacoes {
         boolean pas = false;
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Login> resultado = new ArrayList();
-        String sql = "FROM Login";
+        String sql = "FROM Login "
+                + "WHERE status = 'A'";
         try {
             org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
