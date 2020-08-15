@@ -491,7 +491,11 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtIdadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdadeFocusLost
-        verificaIdade();
+        
+        if(!txtIdade.getText().equals("")) {
+            verificaIdade();
+        }
+            
     }//GEN-LAST:event_txtIdadeFocusLost
 
     private void btnBuscaPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaPessoaActionPerformed
