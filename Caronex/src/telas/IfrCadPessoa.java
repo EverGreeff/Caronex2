@@ -8,6 +8,7 @@ package telas;
 import apoio.Formatacao;
 import apoio.GerenciarJanelas;
 import apoio.HibernateUtil;
+import apoio.Pesquisas;
 import apoio.Validacao;
 import entidades.Pessoa;
 import java.awt.Color;
@@ -285,11 +286,11 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                     .addComponent(txtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addComponent(txtIdentidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtIdentidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel25)
@@ -447,8 +448,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                 pessoa.setTelefone(ftxtTelefone.getText());
                 pessoa.setStatus("A");
                 pessoa.setIdentidade(txtIdentidade.getText());
-
-
+                pessoa.setId_responsavel(1);
 
                 sessao.save(pessoa);
                 transacao.commit();
@@ -474,7 +474,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCampoPesquisaActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        //new ApresentacaoDAO().popularTabela(tblApresentacao, tfdBusca.getText());
+        Pesquisas.PesquisaPessoa(tblPessoas, txtCampoPesquisa.getText());
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
