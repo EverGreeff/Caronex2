@@ -168,7 +168,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jimGruposActionPerformed
 
     private void jimPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPessoasActionPerformed
-        //GerenciarJanelas.abreJanela(IfrCadPessoa.getInstancia());
+        GerenciarJanelas.abreJanela(IfrCadPessoa.getInstancia());
     }//GEN-LAST:event_jimPessoasActionPerformed
 
     private void jimUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimUsuariosActionPerformed
