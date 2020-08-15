@@ -6,6 +6,8 @@
 package telas;
 
 
+import apoio.GerenciarJanelas;
+import apoio.Pesquisas;
 import entidades.Pessoa;
 
 /**
@@ -14,7 +16,7 @@ import entidades.Pessoa;
  */
 public class DlgPessoas extends javax.swing.JDialog {
 
-    Pessoa pessoa = new Pessoa();
+    String textoDigitado;
     
     
     /**
@@ -29,7 +31,7 @@ public class DlgPessoas extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         txtBusca.setText(textoDigitado);
-        btnPesquisar.doClick();
+        //btnPesquisar.doClick();
     }
 
     /**
@@ -138,7 +140,7 @@ public class DlgPessoas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
+        Pesquisas.PesquisaPessoa(tblPessoas, txtBusca.getText());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
