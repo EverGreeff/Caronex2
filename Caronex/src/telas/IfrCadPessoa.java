@@ -24,6 +24,8 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
 
     private static IfrCadPessoa tela;
     
+    String errors;
+    
     /**
      * Creates new form IfrCadPessoa
      */
@@ -31,9 +33,10 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         initComponents();
         
         // aplica mascaras
-        Formatacao.formatarData(ftxtDataNasc);
         Formatacao.formatarCpf(ftxtCpf);
         Formatacao.formatarTelefone(ftxtTelefone);
+        txtResponsavel.setEditable(false);
+        btnBuscaPessoa.setVisible(false);
     }
     
     public static IfrCadPessoa getInstancia() {
@@ -53,6 +56,8 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         if(Integer.valueOf(txtIdade.getText()) < 18) {
             jLabel10.setText("Pessoa de menor, selecione um responsável!");
             jLabel10.setForeground(Color.red);
+            txtResponsavel.setEditable(true);
+            btnBuscaPessoa.setVisible(true);
         }
         
         return ok;
@@ -75,29 +80,19 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         btnSalvar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         txtObservacao = new javax.swing.JTextField();
         ftxtEmail = new javax.swing.JFormattedTextField();
-        ftxtDataNasc = new javax.swing.JFormattedTextField();
         ftxtCpf = new javax.swing.JFormattedTextField();
-        ctxtTipoPessoa = new javax.swing.JComboBox<>();
         ftxtTelefone = new javax.swing.JFormattedTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtLogin = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -106,7 +101,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         txtIdentidade = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtResponsavel = new javax.swing.JTextField();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        btnBuscaPessoa = new javax.swing.JToggleButton();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -139,36 +134,9 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Telefone");
 
-        jLabel5.setText("Data Nasc");
-
         jLabel9.setText("CPF");
 
         jLabel11.setText("Observação");
-
-        jLabel14.setText("Tipo Pessoa");
-
-        ctxtTipoPessoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ctxtTipoPessoa.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ctxtTipoPessoaItemStateChanged(evt);
-            }
-        });
-        ctxtTipoPessoa.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                ctxtTipoPessoaCaretPositionChanged(evt);
-            }
-        });
-        ctxtTipoPessoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ctxtTipoPessoaActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Login");
-
-        jLabel16.setText("Senha");
 
         jButton1.setText("Fechar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -186,9 +154,6 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         jLabel19.setForeground(new java.awt.Color(255, 0, 0));
         jLabel19.setText("*");
 
-        jLabel20.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel20.setText("*");
-
         jLabel23.setForeground(new java.awt.Color(255, 0, 0));
         jLabel23.setText("*");
 
@@ -197,9 +162,6 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
 
         jLabel25.setForeground(new java.awt.Color(255, 0, 0));
         jLabel25.setText("*");
-
-        jLabel26.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel26.setText("*");
 
         jLabel21.setForeground(new java.awt.Color(255, 0, 0));
         jLabel21.setText("*");
@@ -218,10 +180,10 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Responsável");
 
-        jToggleButton2.setText("Buscar Pessoa");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscaPessoa.setText("Buscar Pessoa");
+        btnBuscaPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                btnBuscaPessoaActionPerformed(evt);
             }
         });
 
@@ -234,39 +196,20 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(46, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(13, 13, 13)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ctxtTipoPessoa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel16))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtLogin)
-                                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(jLabel22)))
+                        .addComponent(jLabel22)
+                        .addGap(698, 698, 698))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdentidade))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addContainerGap(11, Short.MAX_VALUE)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel4)
-                                            .addComponent(jLabel5)
                                             .addComponent(jLabel9)
                                             .addComponent(jLabel11)
                                             .addComponent(jLabel1))
@@ -278,24 +221,26 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtObservacao, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                                     .addComponent(ftxtEmail)
-                                    .addComponent(ftxtDataNasc)
                                     .addComponent(ftxtCpf)
                                     .addComponent(ftxtTelefone)
                                     .addComponent(txtNome)
-                                    .addComponent(txtIdade)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIdentidade, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(jLabel18)
                             .addComponent(jLabel19)
-                            .addComponent(jLabel20)
                             .addComponent(jLabel23)
                             .addComponent(jLabel24)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel26))))
+                            .addComponent(jLabel25))))
                 .addGap(77, 77, 77))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -308,7 +253,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscaPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(33, 33, 33)))
                 .addGap(59, 59, 59))
         );
@@ -330,12 +275,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(ftxtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(ftxtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(ftxtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -347,23 +287,24 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(jLabel6)
-                    .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(txtIdentidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel25)
-                    .addComponent(jLabel7)
-                    .addComponent(txtIdentidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton2))
-                .addGap(1, 1, 1)
-                .addComponent(jLabel26)
-                .addGap(26, 26, 26)
+                    .addComponent(btnBuscaPessoa))
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jLabel22))
@@ -371,19 +312,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(ctxtTipoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastrar", jPanel1);
@@ -505,42 +434,36 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Session sessao = null;
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction transacao = sessao.beginTransaction();
-            Pessoa pessoa = new Pessoa();
-            pessoa.setNome(txtNome.getText());
-            pessoa.setCpf(ftxtCpf.getText());
-            pessoa.setIdade(Integer.parseInt(txtIdade.getText()));
-            pessoa.setEmail(ftxtEmail.getText());
-            pessoa.setTelefone(ftxtTelefone.getText());
-            pessoa.setStatus("A");
-            pessoa.setIdentidade(txtIdentidade.getText());
+        if(validaInsert()) {
+            Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction transacao = sessao.beginTransaction();
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome(txtNome.getText());
+                pessoa.setCpf(ftxtCpf.getText());
+                pessoa.setIdade(Integer.parseInt(txtIdade.getText()));
+                pessoa.setEmail(ftxtEmail.getText());
+                pessoa.setTelefone(ftxtTelefone.getText());
+                pessoa.setStatus("A");
+                pessoa.setIdentidade(txtIdentidade.getText());
 
 
 
-            sessao.save(pessoa);
-            transacao.commit();
-            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-        } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
-        } finally {
-            sessao.close();
+                sessao.save(pessoa);
+                transacao.commit();
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+            } catch (HibernateException hibEx) {
+                hibEx.printStackTrace();
+            } finally {
+                sessao.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
+            errors = "";
         }
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void ctxtTipoPessoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ctxtTipoPessoaItemStateChanged
         
-    }//GEN-LAST:event_ctxtTipoPessoaItemStateChanged
-
-    private void ctxtTipoPessoaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_ctxtTipoPessoaCaretPositionChanged
-
-    }//GEN-LAST:event_ctxtTipoPessoaCaretPositionChanged
-
-    private void ctxtTipoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctxtTipoPessoaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ctxtTipoPessoaActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
@@ -571,14 +494,13 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         verificaIdade();
     }//GEN-LAST:event_txtIdadeFocusLost
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+    private void btnBuscaPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaPessoaActionPerformed
         DlgPessoas dlgPessoas = new DlgPessoas(null, true, txtResponsavel.getText());
         dlgPessoas.setVisible(true);
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    }//GEN-LAST:event_btnBuscaPessoaActionPerformed
 
     public boolean validaInsert() {
         String replaced = "";
-        String errors = "";
         
         //Nome
         if (txtNome.getText().length() == 0) {
@@ -586,10 +508,10 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         }
         
         //E-mail
-//        if (ftxtEmail.getText().length() == 0) {
-//            errors += "Preencha o e-mail - ";
-//            //existe validador de e-mail??
-//        }
+        if (ftxtEmail.getText().length() == 0) {
+            errors += "Preencha o e-mail - ";
+            //existe validador de e-mail??
+        }
         
         //Telefone
         if (Validacao.validarTelefone(ftxtTelefone)) {
@@ -597,18 +519,6 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
             errors += "Telefone Inválido - ";
         }
        
-        //Data
-        replaced = "";
-        replaced = ftxtDataNasc.getText().replace("_", "");
-        if (replaced.length() == 10) {
-            if (Validacao.validarDataFormatada(ftxtDataNasc.getText())) {
-                //data está ok
-            } else {
-                errors += "Data Inválida - ";
-            }
-        } else {
-            errors += "Data Inválida - ";
-        }
         
         //CPF
         replaced = "";
@@ -628,36 +538,29 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnBuscaPessoa;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> ctxtTipoPessoa;
     private javax.swing.JFormattedTextField ftxtCpf;
-    private javax.swing.JFormattedTextField ftxtDataNasc;
     private javax.swing.JFormattedTextField ftxtEmail;
     private javax.swing.JFormattedTextField ftxtTelefone;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -667,17 +570,14 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JTable tblPessoas;
     private javax.swing.JLabel tfdBusca;
     private javax.swing.JTextField txtCampoPesquisa;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtIdentidade;
-    private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtObservacao;
     private javax.swing.JTextField txtResponsavel;
-    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
 
