@@ -5,6 +5,7 @@
  */
 package telas;
 
+import apoio.HibernateUtil;
 import apoio.*;
 import javax.swing.JOptionPane;
 
