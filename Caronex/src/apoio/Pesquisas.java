@@ -33,13 +33,8 @@ public class Pesquisas {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         tabela.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         tabela.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(5).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(6).setCellRenderer(centralizado);
         tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(140);
-        tabela.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
-        tabela.getColumnModel().getColumn(6).setPreferredWidth(50);
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         //fim Jtable
