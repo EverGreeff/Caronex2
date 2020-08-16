@@ -12,6 +12,7 @@
     <mapping class="entidades.Cidade"/>
     <mapping class="entidades.Endereco"/>
     <mapping class="entidades.Grupo_Pessoa"/>
+    <mapping class="entidades.Grupo"/>
     <mapping class="entidades.Login"/>
     <mapping class="entidades.Pessoa"/>
     <mapping class="entidades.Veiculo"/>
