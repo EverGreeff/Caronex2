@@ -34,6 +34,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
      */
     public IfrCadPessoa() {
         initComponents();
+        id = -1;
         
         // aplica mascaras
         Formatacao.formatarCpf(ftxtCpf);
@@ -452,7 +453,13 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                 pessoa.setIdentidade(txtIdentidade.getText());
                 pessoa.setId_responsavel(1);
 
-                sessao.save(pessoa);
+                if (id > -1) {
+                    pessoa.setId_pessoa(id);
+                    sessao.update(pessoa);
+                } else {
+                    sessao.save(pessoa);
+                }
+                
                 transacao.commit();
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
             } catch (HibernateException hibEx) {
@@ -495,19 +502,19 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
             
             //id = Integer.parseInt(JOptionPane.showInputDialog(null, "Código da pessoa a ser ALTERADA:", "Editar", JOptionPane.PLAIN_MESSAGE));
 
-            org.hibernate.Query query = sessao.createQuery("FROM cad_pessoa WHERE id = " + id);
+            org.hibernate.Query query = sessao.createQuery("FROM Pessoa WHERE id = " + id);
 
             resultado = query.list();
             for (Object obj : resultado) {
                 Pessoa pessoa = new Pessoa();
-                pessoa.setNome(txtNome.getText());
-                pessoa.setCpf(ftxtCpf.getText());
-                pessoa.setIdade(Integer.parseInt(txtIdade.getText()));
-                pessoa.setEmail(ftxtEmail.getText());
-                pessoa.setTelefone(ftxtTelefone.getText());
-                pessoa.setStatus("A");
-                pessoa.setIdentidade(txtIdentidade.getText());
-                pessoa.setId_responsavel(1);
+//                pessoa.setNome();
+//                pessoa.setCpf();
+//                pessoa.setIdade();
+//                pessoa.setEmail();
+//                pessoa.setTelefone();
+//                pessoa.setStatus();
+//                pessoa.setIdentidade();
+//                pessoa.setId_responsavel();
             }
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
