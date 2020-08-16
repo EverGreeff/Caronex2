@@ -34,10 +34,14 @@ public class Pesquisas {
         
         //verificar o getColumn(não pode ter o numero maior do que o Num de Colunas
         tabela.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         tabela.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         
         tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(140);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(140);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(140);
         
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
