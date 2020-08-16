@@ -12,6 +12,7 @@ import apoio.Pesquisas;
 import apoio.Validacao;
 import entidades.Pessoa;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -26,6 +27,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     private static IfrCadPessoa tela;
     
     String errors;
+    int id;
     
     /**
      * Creates new form IfrCadPessoa
@@ -483,7 +485,33 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
+        id = Integer.parseInt(String.valueOf(tblPessoas.getValueAt(tblPessoas.getSelectedRow(), 0)));
+        jTabbedPane1.setSelectedIndex(0);
+        List resultado = null;
+        Session sessao = null;
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            
+            //id = Integer.parseInt(JOptionPane.showInputDialog(null, "Código da pessoa a ser ALTERADA:", "Editar", JOptionPane.PLAIN_MESSAGE));
+
+            org.hibernate.Query query = sessao.createQuery("FROM cad_pessoa WHERE id = " + id);
+
+            resultado = query.list();
+            for (Object obj : resultado) {
+                Pessoa pessoa = new Pessoa();
+                pessoa.setNome(txtNome.getText());
+                pessoa.setCpf(ftxtCpf.getText());
+                pessoa.setIdade(Integer.parseInt(txtIdade.getText()));
+                pessoa.setEmail(ftxtEmail.getText());
+                pessoa.setTelefone(ftxtTelefone.getText());
+                pessoa.setStatus("A");
+                pessoa.setIdentidade(txtIdentidade.getText());
+                pessoa.setId_responsavel(1);
+            }
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+}
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -505,6 +533,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
 
     public boolean validaInsert() {
         String replaced = "";
+        errors = "";
         
         //Nome
         if (txtNome.getText().length() == 0) {
