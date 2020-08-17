@@ -35,6 +35,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
      */
     public IfrCadPessoa() {
         initComponents();
+        setTitle("Cadastrar Pessoa");
         id = -1;
         
         // aplica mascaras
