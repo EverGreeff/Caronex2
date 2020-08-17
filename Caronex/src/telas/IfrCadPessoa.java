@@ -488,10 +488,10 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         id = Integer.parseInt(String.valueOf(tblPessoas.getValueAt(tblPessoas.getSelectedRow(), 0)));
         jTabbedPane1.setSelectedIndex(0);
-        List resultado = null;
         Session sessao = null;
+        sessao = HibernateUtil.getSessionFactory().openSession();
         try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
+            
             Transaction transacao = sessao.beginTransaction();
           
             Pessoa pessoa = (Pessoa) sessao.get(Pessoa.class, id);
@@ -505,9 +505,12 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
             Pessoa pessoaResponsavel = (Pessoa) sessao.get(Pessoa.class, pessoa.getId_responsavel());
             txtResponsavel.setText(pessoaResponsavel.getNome());
             
+            id_responsavel = pessoa.getId_responsavel();
             
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+        } finally {
+            sessao.close();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
