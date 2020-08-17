@@ -7,6 +7,7 @@ package telas;
 
 import apoio.*;
 import entidades.Grupo;
+import entidades.Pessoa;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -21,6 +22,7 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
 
     private static IfrCadGrupo tela;
     String errors;
+    public static int id_organizador;
 
     /**
      * Creates new form IfrCadGrupo
@@ -28,7 +30,7 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
     public IfrCadGrupo() {
         initComponents();
         // aplica mascaras
-        btnBuscaResp.setVisible(false);
+        //btnBuscaResp.setVisible(false);
     }
 
     public static IfrCadGrupo getInstancia() {
@@ -41,6 +43,11 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
     private void fechaTela() {
         GerenciarJanelas.fecharJanela(tela);
         tela = null;
+    }
+
+    public void trazerPessoa(Pessoa pessoa) {
+        id_organizador = pessoa.getId_pessoa();
+        txtOrganizador.setText(pessoa.getNome());
     }
 
     public void salvar(Grupo u) {
@@ -72,7 +79,7 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
         }
     }
 
-    public String atualizar(Grupo u) {
+    public void atualizar(Grupo u) {
         Session sessao = null;
         List resultado = null;
         sessao = apoio.HibernateUtil.getSessionFactory().openSession();
@@ -97,32 +104,33 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
         } finally {
             sessao.close();
         }
-        return null;
     }
 
-    public String inativar (Grupo u) {
-        Session sessao = null;
-        List resultado = null;
-        sessao = apoio.HibernateUtil.getSessionFactory().openSession();
-        Transaction transacao = sessao.beginTransaction();
-        org.hibernate.Query query = sessao.createQuery("FROM Grupo WHERE id = " + u.getId_grupo());
+    public void inativar(Grupo u) {
+        if (JOptionPane.showConfirmDialog(null, "Tem Certeza que deseja Inativar este Grupo?") == 0) {
+            Session sessao = null;
+            List resultado = null;
+            sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            org.hibernate.Query query = sessao.createQuery("FROM Grupo WHERE id = " + u.getId_grupo());
 
-        try {
+            try {
 
-            resultado = query.list();
-            for (Object obj : resultado) {
-                Grupo grupo = (Grupo) obj;
-                grupo.setStatus(u.getStatus());
-                sessao.update(grupo);
-                transacao.commit();
+                resultado = query.list();
+                for (Object obj : resultado) {
+                    Grupo grupo = (Grupo) obj;
+                    grupo.setStatus(u.getStatus());
+                    sessao.update(grupo);
+                    transacao.commit();
+                }
+
+            } catch (HibernateException hibEx) {
+                hibEx.printStackTrace();
+            } finally {
+                JOptionPane.showMessageDialog(null, "Grupo Desativado");
+                sessao.close();
             }
-
-        } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
-        } finally {
-            sessao.close();
         }
-        return null;
     }
 
     /**
@@ -325,15 +333,15 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         Grupo grupo = new Grupo();
         grupo.setNome_grupo(txtNomeGrupo.getText());
-        grupo.setId_admin(1);
+        grupo.setId_admin(id_organizador);
         grupo.setStatus("A");
 
         salvar(grupo);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnBuscaRespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaRespActionPerformed
-        //DlgPessoas dlgPessoas = new DlgPessoas(null, true, txtOrganizador.getText());
-        //dlgPessoas.setVisible(true);
+        DlgPessoas dlgPessoas = new DlgPessoas(null, true, txtOrganizador.getText(), this);
+        dlgPessoas.setVisible(true);
 
     }//GEN-LAST:event_btnBuscaRespActionPerformed
 
@@ -344,16 +352,15 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         Grupo grupo = new Grupo();
         grupo.setNome_grupo(txtNomeGrupo.getText());
-        grupo.setId_admin(1);
+        grupo.setId_admin(id_organizador);
         grupo.setStatus("A");
         atualizar(grupo);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnInativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInativarActionPerformed
-        
+        int id = Integer.parseInt(String.valueOf(tblBuscaGrupo.getValueAt(tblBuscaGrupo.getSelectedRow(), 0)));
         Grupo grupo = new Grupo();
-        grupo.setNome_grupo(txtNomeGrupo.getText());
-        grupo.setId_admin(1);
+        grupo.setId_grupo(id);
         grupo.setStatus("X");
         inativar(grupo);
     }//GEN-LAST:event_btnInativarActionPerformed

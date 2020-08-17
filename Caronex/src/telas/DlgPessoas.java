@@ -175,7 +175,7 @@ public class DlgPessoas extends javax.swing.JDialog {
         } else if (buscaLogin != null) {
             buscaLogin.trazerPessoa(pessoa);
         } else if (buscaGrupo != null) {
-//            buscaGrupo.trazerPessoa(pessoa);
+            buscaGrupo.trazerPessoa(pessoa);
         }
         
 
