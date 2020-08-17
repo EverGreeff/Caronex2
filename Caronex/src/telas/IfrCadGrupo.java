@@ -19,93 +19,80 @@ import org.hibernate.Transaction;
  * @author roger
  */
 public class IfrCadGrupo extends javax.swing.JInternalFrame {
-
+    
     private static IfrCadGrupo tela;
     String errors;
     public static int id_organizador;
+    
+    public int id = -1;
 
     /**
      * Creates new form IfrCadGrupo
      */
     public IfrCadGrupo() {
         initComponents();
+        this.setTitle("Cadastrar Grupo");
         // aplica mascaras
         //btnBuscaResp.setVisible(false);
     }
-
+    
     public static IfrCadGrupo getInstancia() {
         if (tela == null) {
             tela = new IfrCadGrupo();
         }
         return tela;
     }
-
+    
     private void fechaTela() {
         GerenciarJanelas.fecharJanela(tela);
         tela = null;
     }
-
+    
     public void trazerPessoa(Pessoa pessoa) {
         id_organizador = pessoa.getId_pessoa();
         txtOrganizador.setText(pessoa.getNome());
     }
-
+    
     public void salvar(Grupo u) {
-
-        if (validaInsert()) {
-            Session sessao = null;
+        
+        Session sessao = null;
+        sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+        
+        try {
             sessao = apoio.HibernateUtil.getSessionFactory().openSession();
-            Transaction transacao = sessao.beginTransaction();
-
-            try {
-                sessao = apoio.HibernateUtil.getSessionFactory().openSession();
-                transacao = sessao.beginTransaction();
-                int id = (int) sessao.save(u);
-                transacao.commit();
-
-                u.setId_grupo(id);
-                JOptionPane.showMessageDialog(null, "Grupo criado com sucesso!");
-            } catch (HibernateException hibEx) {
-                hibEx.printStackTrace();
-            } finally {
-                sessao.close();
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
+            transacao = sessao.beginTransaction();
+            int id = (int) sessao.save(u);
+            transacao.commit();
+            
+            u.setId_grupo(id);
+            JOptionPane.showMessageDialog(null, "Grupo criado com sucesso!");
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
         }
+        
         if (JOptionPane.showConfirmDialog(null, "Voce deseja criar a lista de pessoas do Grupo agora?") == 0) {
             //chamar tela nova
         }
     }
-
+    
     public void atualizar(Grupo u) {
         Session sessao = null;
-        List resultado = null;
         sessao = apoio.HibernateUtil.getSessionFactory().openSession();
         Transaction transacao = sessao.beginTransaction();
-        org.hibernate.Query query = sessao.createQuery("FROM Grupo WHERE id = " + u.getId_grupo());
-
         try {
-
-            resultado = query.list();
-            for (Object obj : resultado) {
-                Grupo grupo = (Grupo) obj;
-                grupo.setId_grupo(u.getId_grupo());
-                grupo.setNome_grupo(u.getNome_grupo());
-                grupo.setId_admin(u.getId_admin());
-                grupo.setStatus(u.getStatus());
-                sessao.update(grupo);
-                transacao.commit();
-            }
-
+            sessao.update(u);
+            transacao.commit();
+            
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
         } finally {
             sessao.close();
         }
     }
-
+    
     public void inativar(Grupo u) {
         if (JOptionPane.showConfirmDialog(null, "Tem Certeza que deseja Inativar este Grupo?") == 0) {
             Session sessao = null;
@@ -113,9 +100,9 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
             sessao = apoio.HibernateUtil.getSessionFactory().openSession();
             Transaction transacao = sessao.beginTransaction();
             org.hibernate.Query query = sessao.createQuery("FROM Grupo WHERE id = " + u.getId_grupo());
-
+            
             try {
-
+                
                 resultado = query.list();
                 for (Object obj : resultado) {
                     Grupo grupo = (Grupo) obj;
@@ -123,7 +110,7 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
                     sessao.update(grupo);
                     transacao.commit();
                 }
-
+                
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
             } finally {
@@ -142,7 +129,6 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BtnFechar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -150,22 +136,16 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
         txtNomeGrupo = new javax.swing.JTextField();
         txtOrganizador = new javax.swing.JTextField();
         btnBuscaResp = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        BtnFechar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuscaGrupo = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txtGrupoBusca = new javax.swing.JTextField();
         btnPesquisaGrupo = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnInativar = new javax.swing.JButton();
-
-        BtnFechar.setText("Fechar");
-        BtnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnFecharActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Nome Grupo:");
 
@@ -178,6 +158,20 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        BtnFechar.setText("Fechar");
+        BtnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnFecharActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -187,14 +181,19 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtOrganizador, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscaResp, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscaResp, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSalvar)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnFechar)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -209,7 +208,11 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
                     .addComponent(btnBuscaResp)
                     .addComponent(txtOrganizador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnFechar)
+                    .addComponent(btnSalvar))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Cadastra", jPanel1);
@@ -236,46 +239,6 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 5, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtGrupoBusca)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPesquisaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtGrupoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisaGrupo))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Pesquisa", jPanel2);
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
         btnAlterar.setText("Editar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,36 +253,62 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtGrupoBusca)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPesquisaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 14, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnInativar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAlterar)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtGrupoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisaGrupo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAlterar)
+                    .addComponent(btnInativar))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Pesquisa", jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnInativar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAlterar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSalvar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnFechar))
-                    .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnFechar)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnAlterar)
-                    .addComponent(btnInativar))
                 .addContainerGap())
         );
 
@@ -331,12 +320,23 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnFecharActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Grupo grupo = new Grupo();
-        grupo.setNome_grupo(txtNomeGrupo.getText());
-        grupo.setId_admin(id_organizador);
-        grupo.setStatus("A");
-
-        salvar(grupo);
+        if (validaInsert()) {
+            
+            Grupo grupo = new Grupo();
+            
+            grupo.setNome_grupo(txtNomeGrupo.getText());
+            grupo.setId_admin(id_organizador);
+            grupo.setStatus("A");
+            
+            if (id > -1) {
+                grupo.setId_grupo(id);
+                atualizar(grupo);
+            } else {
+                salvar(grupo);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnBuscaRespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaRespActionPerformed
@@ -350,11 +350,26 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisaGrupoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        Grupo grupo = new Grupo();
-        grupo.setNome_grupo(txtNomeGrupo.getText());
-        grupo.setId_admin(id_organizador);
-        grupo.setStatus("A");
-        atualizar(grupo);
+        id = Integer.parseInt(String.valueOf(tblBuscaGrupo.getValueAt(tblBuscaGrupo.getSelectedRow(), 0)));
+        jTabbedPane1.setSelectedIndex(0);
+        Session sessao = null;
+        List resultado = null;
+        try {
+            sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+            
+            Grupo grupo = (Grupo) sessao.get(Grupo.class, id);
+            
+            txtNomeGrupo.setText(grupo.getNome_grupo());
+            
+            Pessoa organizador = (Pessoa) sessao.get(Pessoa.class, grupo.getId_admin());
+            txtOrganizador.setText(organizador.getNome());
+            id_organizador = organizador.getId_pessoa();
+            
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnInativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInativarActionPerformed
@@ -364,9 +379,9 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
         grupo.setStatus("X");
         inativar(grupo);
     }//GEN-LAST:event_btnInativarActionPerformed
-
+    
     public boolean validaInsert() {
-
+        
         String replaced = "";
         errors = "";
 
@@ -379,9 +394,9 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
         if (txtNomeGrupo.getText().length() == 0) {
             errors += "Preencha o Organizador - ";
         }
-
+        
         return errors.equals("");
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

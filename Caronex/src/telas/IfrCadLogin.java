@@ -34,7 +34,7 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
      */
     public IfrCadLogin() {
         initComponents();
-        
+        this.setTitle("Cadastrar Usuarios");
         
     }
     
