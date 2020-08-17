@@ -239,8 +239,8 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnBuscaRespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaRespActionPerformed
-        DlgPessoas dlgPessoas = new DlgPessoas(null, true, txtOrganizador.getText());
-        dlgPessoas.setVisible(true);
+//        DlgPessoas dlgPessoas = new DlgPessoas(null, true, txtOrganizador.getText());
+//        dlgPessoas.setVisible(true);
     }//GEN-LAST:event_btnBuscaRespActionPerformed
 
     private void btnPesquisaGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaGrupoActionPerformed

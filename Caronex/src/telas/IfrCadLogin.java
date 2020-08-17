@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import static telas.IfrCadPessoa.id_responsavel;
 
 /**
  *
@@ -25,6 +26,8 @@ import org.hibernate.Transaction;
 public class IfrCadLogin extends javax.swing.JInternalFrame {
 
     private static IfrCadLogin tela;
+    
+    public static int id_admin;
     
     /**
      * Creates new form IfrCadPessoa
@@ -339,7 +342,7 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
             login.setLogin(txtLogin.getText());
             login.setSenha(Criptografia.criptoMD5(txtSenha.getText()));
             login.setStatus("A");
-            login.setId_pessuser(PROPERTIES);
+            login.setId_pessuser(id_admin);
             
             sessao.save(login);
             transacao.commit();
@@ -388,8 +391,13 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    public void trazerPessoa(Pessoa pessoa) {
+        id_admin = pessoa.getId_pessoa();
+        txtUsuario.setText(pessoa.getNome());
+    }
+    
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        DlgPessoas dlgPessoas = new DlgPessoas(null, true, txtUsuario.getText());
+        DlgPessoas dlgPessoas = new DlgPessoas(null, true, txtUsuario.getText(), this);
         dlgPessoas.setVisible(true);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 

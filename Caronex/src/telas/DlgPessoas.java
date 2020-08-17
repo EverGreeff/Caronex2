@@ -16,7 +16,13 @@ import entidades.Pessoa;
  */
 public class DlgPessoas extends javax.swing.JDialog {
 
+    Pessoa pessoa = new Pessoa();
+    
     String textoDigitado;
+    
+    IfrCadPessoa buscaPessoa;
+    IfrCadLogin buscaLogin;
+    IfrCadGrupo buscaGrupo;
     
     
     /**
@@ -27,11 +33,28 @@ public class DlgPessoas extends javax.swing.JDialog {
         initComponents();
     }
 
-    public DlgPessoas(java.awt.Frame parent, boolean modal, String textoDigitado) {
+    public DlgPessoas(java.awt.Frame parent, boolean modal, String textoDigitado, IfrCadPessoa busca) {
         super(parent, modal);
         initComponents();
         txtBusca.setText(textoDigitado);
-        //btnPesquisar.doClick();
+        this.buscaPessoa = busca;
+        btnPesquisar.doClick();
+    }
+    
+    public DlgPessoas(java.awt.Frame parent, boolean modal, String textoDigitado, IfrCadLogin busca) {
+        super(parent, modal);
+        initComponents();
+        txtBusca.setText(textoDigitado);
+        this.buscaLogin = busca;
+        btnPesquisar.doClick();
+    }
+    
+    public DlgPessoas(java.awt.Frame parent, boolean modal, String textoDigitado, IfrCadGrupo busca) {
+        super(parent, modal);
+        initComponents();
+        txtBusca.setText(textoDigitado);
+        this.buscaGrupo = busca;
+        btnPesquisar.doClick();
     }
 
     /**
@@ -144,7 +167,20 @@ public class DlgPessoas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        pessoa.setId_pessoa(Integer.parseInt(String.valueOf(tblPessoas.getValueAt(tblPessoas.getSelectedRow(), 0))));
+        pessoa.setNome(String.valueOf(tblPessoas.getValueAt(tblPessoas.getSelectedRow(), 2)));
         
+        if(buscaPessoa != null) {
+            buscaPessoa.trazerPessoa(pessoa);
+        } else if (buscaLogin != null) {
+            buscaLogin.trazerPessoa(pessoa);
+        } else if (buscaGrupo != null) {
+//            buscaGrupo.trazerPessoa(pessoa);
+        }
+        
+
+        
+        dispose();
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     /**
