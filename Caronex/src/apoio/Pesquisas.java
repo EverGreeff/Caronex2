@@ -27,6 +27,7 @@ public class Pesquisas {
         List<Pessoa> resultado = new ArrayList();
         String sql = "FROM Pessoa "
                 + "WHERE nome LIKE '%" + nome + "%' "
+                + "AND status != 'X'"
                 + "ORDER BY nome";
         //padroniza a JTable
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -73,6 +74,7 @@ public class Pesquisas {
         List<Grupo> resultado = new ArrayList();
         String sql = "FROM Grupo "
                 + "WHERE nome_grupo LIKE '%" + nomeGrupo + "%' "
+                + "AND status != 'X'"
                 + "ORDER BY nome_grupo";
         //padroniza a JTable
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -116,6 +118,7 @@ public static void PesquisaVeiculo(JTable tabela, String placa) {
         List<Veiculo> resultado = new ArrayList();
         String sql = "FROM cad_veiculo "
                 + "WHERE placa LIKE '%" + placa + "%' "
+                + "AND status != 'X'"
                 + "ORDER BY placa";
         //padroniza a JTable
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();

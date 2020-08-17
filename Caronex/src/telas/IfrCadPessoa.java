@@ -352,7 +352,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
             }
         });
 
-        btnExcluir.setText("Excluir");
+        btnExcluir.setText("Inativar");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -508,11 +508,28 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
             
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
-}
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+        id = Integer.parseInt(String.valueOf(tblPessoas.getValueAt(tblPessoas.getSelectedRow(), 0)));
+        Session sessao = null;
+            try {
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction transacao = sessao.beginTransaction();
+                Pessoa pessoa = (Pessoa) sessao.get(Pessoa.class, id);
+                pessoa.setStatus("X");
+                
+                sessao.update(pessoa);
+                
+                
+                transacao.commit();
+                JOptionPane.showMessageDialog(null, "Edição efetuada com sucesso!");
+            } catch (HibernateException hibEx) {
+                hibEx.printStackTrace();
+            } finally {
+                sessao.close();
+            }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtIdadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdadeFocusLost
