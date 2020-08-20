@@ -179,6 +179,64 @@ public class Formatacao {
 
         return dataHoje;
     }
+
+    public static void formatarReal(JFormattedTextField campo) {
+        try {
+            DecimalFormat decimal = new DecimalFormat("###0.00");
+            NumberFormatter numFormatter = new NumberFormatter(decimal);
+            numFormatter.setFormat(decimal);
+            numFormatter.setAllowsInvalid(false);
+            DefaultFormatterFactory dfFactory = new DefaultFormatterFactory(numFormatter);
+            campo.setFormatterFactory(dfFactory);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    public static JFormattedTextField getHora() {
+        return getFormatado("##:##:##");
+    }
+
+    public static void formatarHora(JFormattedTextField campo) {
+        try {
+            MaskFormatter m = new MaskFormatter();
+            m.setPlaceholderCharacter(' ');
+            m.setMask("##:##:##");
+            campo.setCaretPosition(0);
+            campo.setFormatterFactory(null);
+            campo.setFormatterFactory(new DefaultFormatterFactory(m));
+            campo.setValue(null);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    public static String ajustaDataDMA(Date data) {
+        String dataFormatada = null;
+        try {
+            dataFormatada = new SimpleDateFormat("dd/MM/yyyy").format(data);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return (dataFormatada);
+    }
+
+    public static String ajustaDataAMD(Date data) {
+        String dataFormatada = null;
+        try {
+            dataFormatada = new SimpleDateFormat("yyyy-MM-dd").format(data);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return (dataFormatada);
+    }
+
+    public static Date getDataHoraAtualDate() {
+        Date now = new Date();
+        return now;
+    }
+    
+    
     
     
 }

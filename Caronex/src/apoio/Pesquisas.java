@@ -80,8 +80,20 @@ public class Pesquisas {
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         
+        String[] headers = {"Id Grupo","Nome do Grupo","Stat","Adm"};
+        int[] widths = {30,130,30,100}; 
+        
+        for (int i = 0; i < 4; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(40);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+        
         //verificar o getColumn(não pode ter o numero maior do que o Num de Colunas
-        tabela.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        /*tabela.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         tabela.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         tabela.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         tabela.getColumnModel().getColumn(3).setCellRenderer(centralizado);
@@ -90,6 +102,12 @@ public class Pesquisas {
         tabela.getColumnModel().getColumn(1).setPreferredWidth(140);
         tabela.getColumnModel().getColumn(2).setPreferredWidth(40);
         tabela.getColumnModel().getColumn(3).setPreferredWidth(40);
+        //
+        
+        tabela.getColumnModel().getColumn(0).setHeaderValue(headers[0]);
+        tabela.getColumnModel().getColumn(1).setHeaderValue(headers[1]);
+        tabela.getColumnModel().getColumn(2).setHeaderValue(headers[2]);
+        tabela.getColumnModel().getColumn(3).setHeaderValue(headers[3]);*/
         
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);

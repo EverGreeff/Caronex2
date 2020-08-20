@@ -6,6 +6,7 @@
 package telas;
 
 import apoio.*;
+import javax.swing.UIManager;
 
 /**
  *
@@ -24,6 +25,11 @@ public class Main extends javax.swing.JFrame {
         this.setTitle("Caronex");
         this.gerenciarJanelas = new GerenciarJanelas(dktInicial);
         this.setExtendedState(MAXIMIZED_BOTH);
+        try {
+            UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel.class");
+        } catch (Exception e) {
+            
+        }
 
     }
 
@@ -43,7 +49,7 @@ public class Main extends javax.swing.JFrame {
         jimPessoas = new javax.swing.JMenuItem();
         jimGrupos = new javax.swing.JMenuItem();
         jimUsuarios = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        jimFechar = new javax.swing.JMenuItem();
         jmControles = new javax.swing.JMenu();
         jimInfoGrupo = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -56,6 +62,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setIconImage(getIconImage());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -104,8 +111,13 @@ public class Main extends javax.swing.JFrame {
         });
         jmCadastros.add(jimUsuarios);
 
-        jMenuItem10.setText("Next");
-        jmCadastros.add(jMenuItem10);
+        jimFechar.setText("Fechar");
+        jimFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimFecharActionPerformed(evt);
+            }
+        });
+        jmCadastros.add(jimFechar);
 
         jMenuBar1.add(jmCadastros);
 
@@ -178,8 +190,14 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jimUsuariosActionPerformed
 
     private void jimInfoGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimInfoGrupoActionPerformed
-        //GerenciarJanelas.abreJanela(IfrCadGrupoPessoa.getInstancia());
+        GerenciarJanelas.abreJanela(IfrGrupoPessoa.getInstancia());
     }//GEN-LAST:event_jimInfoGrupoActionPerformed
+
+    private void jimFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimFecharActionPerformed
+        
+        
+        this.dispose();
+    }//GEN-LAST:event_jimFecharActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,9 +239,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jimFechar;
     private javax.swing.JMenuItem jimGrupos;
     private javax.swing.JMenuItem jimInfoGrupo;
     private javax.swing.JMenuItem jimPessoas;
