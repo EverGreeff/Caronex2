@@ -134,22 +134,25 @@ public class Pesquisas {
 public static void PesquisaVeiculo(JTable tabela, String placa) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Veiculo> resultado = new ArrayList();
-        String sql = "FROM cad_veiculo "
+        String sql = "FROM Veiculo "
                 + "WHERE placa LIKE '%" + placa + "%' "
-                + "AND status != 'X'"
                 + "ORDER BY placa";
         //padroniza a JTable
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tabela.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(5).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(6).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tabela.getColumnModel().getColumn(2).setPreferredWidth(140);
-        tabela.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
-        tabela.getColumnModel().getColumn(6).setPreferredWidth(50);
+
+        String[] headers = {"ID Veiculo","Placa","KM/L","valor_disp_kml"};
+        int[] widths = {30,130,30,100}; 
+        
+        for (int i = 0; i < 4; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(40);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+        
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         //fim Jtable

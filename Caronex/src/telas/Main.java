@@ -49,6 +49,7 @@ public class Main extends javax.swing.JFrame {
         jimPessoas = new javax.swing.JMenuItem();
         jimGrupos = new javax.swing.JMenuItem();
         jimUsuarios = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jimFechar = new javax.swing.JMenuItem();
         jmControles = new javax.swing.JMenu();
         jimInfoGrupo = new javax.swing.JMenuItem();
@@ -110,6 +111,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jmCadastros.add(jimUsuarios);
+
+        jMenuItem1.setText("Veiculo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jmCadastros.add(jMenuItem1);
 
         jimFechar.setText("Fechar");
         jimFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,6 +208,10 @@ public class Main extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jimFecharActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        GerenciarJanelas.abreJanela(IfrCadVeiculo.getInstancia());        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -239,6 +252,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jimFechar;
