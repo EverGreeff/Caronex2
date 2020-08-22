@@ -66,7 +66,7 @@ public class IfrAjuda extends javax.swing.JInternalFrame {
         jLabel6.setText("Rogério Henrique Klein");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setText("evertongraff@universo.univates.br");
+        jLabel7.setText("everton.greeff@universo.univates.br");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
