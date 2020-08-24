@@ -60,7 +60,7 @@ public class IfrAjuda extends javax.swing.JInternalFrame {
         jLabel5.setText("rhklein@universo.univates.br");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Everton Graff");
+        jLabel2.setText("Everton Greeff");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Rogério Henrique Klein");
