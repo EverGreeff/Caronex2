@@ -74,11 +74,7 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
             sessao.close();
         }
         if (JOptionPane.showConfirmDialog(null, "Voce deseja criar a lista de pessoas do Grupo agora?") == 0) {
-            GerenciarJanelas.abreJanela(IfrCadLogin.getInstancia());
-            this.dispose();
-        }
-        if (JOptionPane.showConfirmDialog(null, "Voce deseja criar a lista de pessoas do Grupo agora?") == 0) {
-            GerenciarJanelas.abreJanela(IfrCadLogin.getInstancia());
+            GerenciarJanelas.abreJanela(IfrGrupoPessoa.getInstancia(u));
             this.dispose();
         }
     }
@@ -362,11 +358,13 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
         try {
             sessao = apoio.HibernateUtil.getSessionFactory().openSession();
 
-            Grupo grupo = (Grupo) sessao.get(Grupo.class, id);
+            Grupo grupo = (Grupo) sessao.get(Grupo.class,
+                    id);
 
             txtNomeGrupo.setText(grupo.getNome_grupo());
 
-            Pessoa organizador = (Pessoa) sessao.get(Pessoa.class, grupo.getId_admin());
+            Pessoa organizador = (Pessoa) sessao.get(Pessoa.class,
+                    grupo.getId_admin());
             txtOrganizador.setText(organizador.getNome());
             id_organizador = organizador.getId_pessoa();
 

@@ -6,7 +6,18 @@
 package telas;
 
 import apoio.GerenciarJanelas;
+import apoio.Pesquisas;
+import entidades.Grupo;
+import entidades.Grupo_Pessoa;
 import entidades.Pessoa;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import static telas.IfrCadGrupo.id_organizador;
 
 /**
@@ -19,7 +30,7 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
 
     String errors;
     int id;
-    public static int id_responsavel;
+    Grupo u;
 
     /**
      * Creates new form IfrGrupoPessoa
@@ -27,7 +38,21 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     public IfrGrupoPessoa() {
         initComponents();
         this.setTitle("Selecionar pessoas do Grupo");
+        Pesquisas.PesquisaPessoa(tblPessoas, "");
+        Pesquisas.PesquisaPessoa(tblGrupoPessoas, null);
+
     }
+
+    public static IfrGrupoPessoa getInstancia(Grupo u) {
+        if (tela == null) {
+            tela = new IfrGrupoPessoa();
+            tela.u = u;
+            tela.txtNomeGrupo.setText(u.getNome_grupo());
+            tela.txtOrganizador.setText(String.valueOf(u.getId_admin()));
+        }
+        return tela;
+    }
+
     public static IfrGrupoPessoa getInstancia() {
         if (tela == null) {
             tela = new IfrGrupoPessoa();
@@ -38,6 +63,60 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     private void fechaTela() {
         GerenciarJanelas.fecharJanela(tela);
         tela = null;
+    }
+
+    public void salvar(Grupo_Pessoa gp, JTable tgp) {
+
+        Session sessao = null;
+        sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+
+        try {
+            sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+            transacao = sessao.beginTransaction();
+
+            for (int i = 0; i < tgp.getRowCount(); i++) {
+                int codPessoa = (int) tgp.getValueAt(i, 0);
+                gp.setId_pessoa(codPessoa);
+                sessao.save(gp);
+            }
+            transacao.commit();
+            JOptionPane.showMessageDialog(null, "Pessoas Salvas no Grupo com sucesso!");
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+    }
+
+    public void atualizar(Grupo_Pessoa u) {
+        Session sessao = null;
+        sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+        try {
+            sessao.update(u);
+            transacao.commit();
+
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+    }
+
+    public boolean validaInsert() {
+
+        String replaced = "";
+        errors = "";
+
+        //NomeGrupo
+        if (tblGrupoPessoas.getRowCount() < 1) {
+            errors += "Inclua pelo menos uma pessoa no Grupo - ";
+        }
+
+        return errors.equals("");
+
     }
 
     /**
@@ -57,12 +136,14 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
         btnRem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtNomeGrupo = new javax.swing.JTextField();
+        txtOrganizador = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnGrupo = new javax.swing.JButton();
 
         tblPessoas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,8 +172,18 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblGrupoPessoas);
 
         btnAdd.setText(">");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnRem.setText("<");
+        btnRem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nome do Grupo:");
 
@@ -102,7 +193,7 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Lista de Pessoas do Grupo");
 
-        jButton1.setText("Cadastra Pessoa");
+        jButton1.setText("Cad. Pessoa");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -113,6 +204,20 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFecharActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnGrupo.setText("Busca Grupo");
+        btnGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrupoActionPerformed(evt);
             }
         });
 
@@ -127,12 +232,15 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNomeGrupo)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGrupo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(txtOrganizador))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -140,18 +248,20 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnRem, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnRem, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSalvar)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnFechar)))))
                 .addContainerGap())
         );
@@ -160,13 +270,18 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNomeGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnGrupo))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtOrganizador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -187,7 +302,9 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
                                 .addGap(13, 13, 13)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFechar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnFechar)
+                            .addComponent(btnSalvar))
                         .addContainerGap())))
         );
 
@@ -195,18 +312,80 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        fechaTela();
+
+        if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair sem salvar?") == 0) {
+            fechaTela();
+        }
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         GerenciarJanelas.abreJanela(IfrCadPessoa.getInstancia());
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if (validaInsert()) {
+
+            Grupo_Pessoa gp = new Grupo_Pessoa();
+            gp.setId_grupo(u.getId_grupo());
+
+            salvar(gp, tblGrupoPessoas);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+    void trazerGrupo(Grupo grupo) {
+        u = grupo;
+        txtNomeGrupo.setText(grupo.getNome_grupo());
+    }
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        tblGrupoPessoas.setBackground(null);
+        TableModel model1 = tblPessoas.getModel();
+        DefaultTableModel model11 = (DefaultTableModel) tblPessoas.getModel();
+        int[] indexs = tblPessoas.getSelectedRows();
+        int columns = tblPessoas.getColumnCount();
+        Object[] row = new Object[columns];
+        DefaultTableModel model2 = (DefaultTableModel) tblGrupoPessoas.getModel();
+
+        for (int i = 0; i < indexs.length; i++) {
+            for (int j = 0; j < columns; j++) {
+                row[j] = model1.getValueAt(indexs[i], j);
+            }
+            model2.addRow(row);
+            model11.removeRow(indexs[i]);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnRemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemActionPerformed
+        TableModel model1 = tblGrupoPessoas.getModel();
+        DefaultTableModel model11 = (DefaultTableModel) tblGrupoPessoas.getModel();
+        int[] indexs = tblGrupoPessoas.getSelectedRows();
+        int columns = tblGrupoPessoas.getColumnCount();
+        Object[] row = new Object[columns];
+        DefaultTableModel model2 = (DefaultTableModel) tblPessoas.getModel();
+
+        for (int i = 0; i < indexs.length; i++) {
+            for (int j = 0; j < columns; j++) {
+                row[j] = model1.getValueAt(indexs[i], j);
+            }
+            model2.addRow(row);
+            model11.removeRow(indexs[i]);
+        }
+    }//GEN-LAST:event_btnRemActionPerformed
+
+    private void btnGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrupoActionPerformed
+        DlgGrupo dlgGrupo = new DlgGrupo(null, true, txtNomeGrupo.getText(), this);
+        dlgGrupo.setVisible(true);
+    }//GEN-LAST:event_btnGrupoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnGrupo;
     private javax.swing.JButton btnRem;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -214,9 +393,10 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tblGrupoPessoas;
     private javax.swing.JTable tblPessoas;
+    private javax.swing.JTextField txtNomeGrupo;
+    private javax.swing.JTextField txtOrganizador;
     // End of variables declaration//GEN-END:variables
+
 }
