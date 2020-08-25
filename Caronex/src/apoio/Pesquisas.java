@@ -88,11 +88,11 @@ public class Pesquisas {
         String[] headers = {"Id Grupo", "Nome do Grupo", "Stat", "Adm"};
         int[] widths = {30, 130, 30, 100};
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < headers.length; i++) {
             //centraliza
             tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
             //seta a largura
-            tabela.getColumnModel().getColumn(i).setPreferredWidth(40);
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
             //seta o header
             tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
         }
