@@ -65,11 +65,13 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
             transacao = sessao.beginTransaction();
             int id = (int) sessao.save(u);
             transacao.commit();
-
             u.setId_grupo(id);
+            Audita.salvarAuditoria("SalvarGrupo", "Grupo", 1);
+
             JOptionPane.showMessageDialog(null, "Grupo criado com sucesso!");
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD("admin", "salvar", "dao", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -86,9 +88,11 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
         try {
             sessao.update(u);
             transacao.commit();
+            Audita.salvarAuditoria("AtualizarGrupo", "Grupo", 1);
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLogBD("admin", "atualizar", "dao", hibEx.toString());
         } finally {
             sessao.close();
         }
@@ -110,10 +114,12 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
                     grupo.setStatus(u.getStatus());
                     sessao.update(grupo);
                     transacao.commit();
+                    Audita.salvarAuditoria("InativarGrupo", "Grupo", 1);
                 }
 
             } catch (HibernateException hibEx) {
                 hibEx.printStackTrace();
+                Log.geraLogBD("admin", "inativar", "dao", hibEx.toString());
             } finally {
                 JOptionPane.showMessageDialog(null, "Grupo Desativado");
                 sessao.close();
@@ -370,6 +376,7 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
 
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
+            Log.geraLog("admin", "IfrCadGrupo", "Alterar", hibEx.toString());
         } finally {
             sessao.close();
         }
