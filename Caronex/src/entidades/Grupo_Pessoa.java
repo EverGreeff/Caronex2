@@ -12,17 +12,19 @@ import javax.persistence.*;
  *
  * @author roger
  */
-@Entity
+@Embeddable
 @Table(name = "grupo_pessoa")
 
 public class Grupo_Pessoa implements Serializable {
 
     @Id
-    @Column(name = "id_grupo")
+    @ManyToMany
+    @JoinColumn(name = "id_grupo")
     private int id_grupo;
-    
+
     @Id
-    @Column(name = "id_pessoa")
+    @ManyToMany
+    @JoinColumn(name = "id_pessoa")
     private int id_pessoa;
 
     public int getId_grupo() {

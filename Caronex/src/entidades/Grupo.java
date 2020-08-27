@@ -6,6 +6,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -14,23 +15,21 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "grupo")
-
 public class Grupo implements Serializable {
+
+    private int id_grupo;
+
+    private Set<Pessoa> pessoas;
+
+    private String nome_grupo;
+
+    private int id_admin; //id_pessoa
+
+    private String status;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_grupo")
-    private int id_grupo;
-
-    @Column(name = "nome_grupo")
-    private String nome_grupo;
-
-    @Column(name = "admin")
-    private int id_admin; //id_pessoa
-
-    @Column(name = "status")
-    private String status;
-
     public int getId_grupo() {
         return id_grupo;
     }
@@ -39,6 +38,7 @@ public class Grupo implements Serializable {
         this.id_grupo = id_grupo;
     }
 
+    @Column(name = "nome_grupo")
     public String getNome_grupo() {
         return nome_grupo;
     }
@@ -47,6 +47,7 @@ public class Grupo implements Serializable {
         this.nome_grupo = nome_grupo;
     }
 
+    @Column(name = "admin")
     public int getId_admin() {
         return id_admin;
     }
@@ -55,6 +56,7 @@ public class Grupo implements Serializable {
         this.id_admin = id_admin;
     }
 
+    @Column(name = "status")
     public String getStatus() {
         return status;
     }
@@ -63,5 +65,17 @@ public class Grupo implements Serializable {
         this.status = status;
     }
 
+    @ManyToMany
+    @JoinTable(name = "grupo_pessoa",
+            joinColumns = {
+                @JoinColumn(name = "id_grupo")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "id_pessoa")})
+    public Set<Pessoa> getPessoas() {
+        return pessoas;
+    }
 
+    public void setPessoas(Set<Pessoa> grupoPessoa) {
+        this.pessoas = grupoPessoa;
+    }
 }

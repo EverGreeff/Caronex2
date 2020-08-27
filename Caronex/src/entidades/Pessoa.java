@@ -6,6 +6,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -16,35 +17,29 @@ import javax.persistence.*;
 @Table(name = "cad_pessoa")
 public class Pessoa implements Serializable {
 
+    private int id_pessoa;
+    
+    private Set<Grupo> grupos;
+
+    private String identidade;
+
+    private String nome;
+
+    private String cpf;
+
+    private String status;
+
+    private String email;
+
+    private String telefone;
+
+    private int idade;
+
+    private int id_responsavel;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pessoa")
-    private int id_pessoa;
-
-    @Column(name = "identidade")
-    private String identidade;
-
-    @Column(name = "nome")
-    private String nome;
-
-    @Column(name = "cpf")
-    private String cpf;
-
-    @Column(name = "status")
-    private String status;
-
-    @Column(name = "email")
-    private String email;
-    
-    @Column(name = "telefone")
-    private String telefone;
-    
-    @Column(name = "idade")
-    private int idade;
-
-    @Column(name = "id_responsavel")
-    private int id_responsavel;
-
     public int getId_pessoa() {
         return id_pessoa;
     }
@@ -53,6 +48,7 @@ public class Pessoa implements Serializable {
         this.id_pessoa = id_pessoa;
     }
 
+    @Column(name = "identidade")
     public String getIdentidade() {
         return identidade;
     }
@@ -61,6 +57,7 @@ public class Pessoa implements Serializable {
         this.identidade = identidade;
     }
 
+    @Column(name = "nome")
     public String getNome() {
         return nome;
     }
@@ -69,6 +66,7 @@ public class Pessoa implements Serializable {
         this.nome = nome;
     }
 
+    @Column(name = "cpf")
     public String getCpf() {
         return cpf;
     }
@@ -77,6 +75,7 @@ public class Pessoa implements Serializable {
         this.cpf = cpf;
     }
 
+    @Column(name = "status")
     public String getStatus() {
         return status;
     }
@@ -85,6 +84,7 @@ public class Pessoa implements Serializable {
         this.status = status;
     }
 
+    @Column(name = "idade")
     public int getIdade() {
         return idade;
     }
@@ -93,6 +93,7 @@ public class Pessoa implements Serializable {
         this.idade = idade;
     }
 
+    @Column(name = "id_responsavel")
     public int getId_responsavel() {
         return id_responsavel;
     }
@@ -101,6 +102,7 @@ public class Pessoa implements Serializable {
         this.id_responsavel = id_responsavel;
     }
 
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -109,6 +111,7 @@ public class Pessoa implements Serializable {
         this.email = email;
     }
 
+    @Column(name = "telefone")
     public String getTelefone() {
         return telefone;
     }
@@ -116,8 +119,18 @@ public class Pessoa implements Serializable {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    
-    
-    
+
+    @ManyToMany
+    @JoinTable(name = "grupo_pessoa",
+            joinColumns = {
+                @JoinColumn(name = "id_pessoa")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "id_grupo")})
+    public Set<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(Set<Grupo> grupos) {
+        this.grupos = grupos;
+    }
 }

@@ -28,7 +28,7 @@ public class Main extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel.class");
         } catch (Exception e) {
-            
+            System.out.println(e);
         }
 
     }
@@ -203,13 +203,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jimInfoGrupoActionPerformed
 
     private void jimFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimFecharActionPerformed
-        
-        
         this.dispose();
     }//GEN-LAST:event_jimFecharActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        GerenciarJanelas.abreJanela(IfrCadVeiculo.getInstancia());        
+        GerenciarJanelas.abreJanela(IfrCadVeiculo.getInstancia());
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**

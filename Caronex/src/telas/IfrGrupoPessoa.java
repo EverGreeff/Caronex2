@@ -65,7 +65,7 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
         tela = null;
     }
 
-    public void salvar(Grupo_Pessoa gp, JTable tgp) {
+    public void salvar(Grupo g, JTable tgp) {
 
         Session sessao = null;
         sessao = apoio.HibernateUtil.getSessionFactory().openSession();
@@ -76,10 +76,13 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
             transacao = sessao.beginTransaction();
 
             for (int i = 0; i < tgp.getRowCount(); i++) {
+                Pessoa p = new Pessoa();
                 int codPessoa = (int) tgp.getValueAt(i, 0);
-                gp.setId_pessoa(codPessoa);
-                sessao.save(gp);
+                p.setId_pessoa(codPessoa);
+                g.getPessoas().add(p);
             }
+
+            sessao.save(g);
             transacao.commit();
             JOptionPane.showMessageDialog(null, "Pessoas Salvas no Grupo com sucesso!");
         } catch (HibernateException hibEx) {
@@ -325,10 +328,7 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (validaInsert()) {
 
-            Grupo_Pessoa gp = new Grupo_Pessoa();
-            gp.setId_grupo(u.getId_grupo());
-
-            salvar(gp, tblGrupoPessoas);
+            salvar(u, tblGrupoPessoas);
 
         } else {
             JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
