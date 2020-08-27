@@ -95,5 +95,30 @@ public class Endereco implements Serializable {
         this.cidade_id_cid = cidade_id_cid;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + this.id_end;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Endereco other = (Endereco) obj;
+        if (this.id_end != other.id_end) {
+            return false;
+        }
+        return true;
+    }
+
     
 }

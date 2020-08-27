@@ -78,4 +78,35 @@ public class Grupo implements Serializable {
     public void setPessoas(Set<Pessoa> grupoPessoa) {
         this.pessoas = grupoPessoa;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this.id_grupo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Grupo other = (Grupo) obj;
+        if (this.id_grupo != other.id_grupo) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Grupo{" + "id_grupo=" + id_grupo + ", pessoas=" + pessoas + ", nome_grupo=" + nome_grupo + ", id_admin=" + id_admin + ", status=" + status + '}';
+    }
+
 }

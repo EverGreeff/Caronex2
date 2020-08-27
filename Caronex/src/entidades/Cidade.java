@@ -62,5 +62,35 @@ public class Cidade implements Serializable {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Cidade{" + "id_cid=" + id_cid + ", cidade=" + cidade + ", uf=" + uf + ", status=" + status + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + this.id_cid;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cidade other = (Cidade) obj;
+        if (this.id_cid != other.id_cid) {
+            return false;
+        }
+        return true;
+    }
+
     
 }

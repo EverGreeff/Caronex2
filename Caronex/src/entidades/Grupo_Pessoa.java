@@ -43,4 +43,9 @@ public class Grupo_Pessoa implements Serializable {
         this.id_pessoa = id_pessoa;
     }
 
+    @Override
+    public String toString() {
+        return "Grupo_Pessoa{" + "id_grupo=" + id_grupo + ", id_pessoa=" + id_pessoa + '}';
+    }
+
 }

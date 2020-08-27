@@ -68,7 +68,7 @@ public class Pesquisas {
                     pessoa.getId_responsavel()});
             }
         } catch (HibernateException e) {
-
+            Log.geraLogBD("admin", "PesquisaPessoa", "Pessoa", e.toString());
         } finally {
             sessao.close();
         }
@@ -130,7 +130,7 @@ public class Pesquisas {
                 });
             }
         } catch (HibernateException e) {
-
+            Log.geraLogBD("admin", "PesquisaGrupo", "Grupo", e.toString());
         } finally {
             sessao.close();
         }
@@ -177,7 +177,7 @@ public class Pesquisas {
                     veiculo.getCor()});
             }
         } catch (HibernateException e) {
-
+            Log.geraLogBD("admin", "PesquisaVeiculo", "Veiculo", e.toString());
         } finally {
             sessao.close();
         }
