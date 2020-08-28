@@ -28,7 +28,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     
     String errors;
     int id;
-    public static int id_responsavel;
+    public static int id_responsavel = 1;
     
     /**
      * Creates new form IfrCadPessoa
