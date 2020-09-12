@@ -85,7 +85,7 @@ public class Pesquisas {
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
 
-        String[] headers = {"Id Grupo", "Nome do Grupo", "Stat", "Adm"};
+        String[] headers = {"ID", "Nome do Grupo", "Stat", "Adm"};
         int[] widths = {30, 130, 30, 100};
 
         for (int i = 0; i < headers.length; i++) {
@@ -146,7 +146,7 @@ public class Pesquisas {
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
 
-        String[] headers = {"ID Veiculo", "Placa", "KM/L", "valor_disp_kml"};
+        String[] headers = {"ID", "Placa", "KM/L", "valor_disp_kml"};
         int[] widths = {30, 130, 30, 100};
 
         for (int i = 0; i < 4; i++) {
@@ -178,6 +178,99 @@ public class Pesquisas {
             }
         } catch (HibernateException e) {
             Log.geraLogBD("admin", "PesquisaVeiculo", "Veiculo", e.toString());
+        } finally {
+            sessao.close();
+        }
+    }
+    
+    public static void PesquisaEndereco(JTable tabela, String busca) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Endereco> resultado = new ArrayList();
+        String sql = "FROM Endereco "
+                + "WHERE bairro LIKE '%" + busca + "%' OR numero LIKE '%" + busca + "%' OR logradouro LIKE '%" + busca + "%'"
+                + "AND status != 'X' "
+                + "ORDER BY id_end";
+        //padroniza a JTable
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        String[] headers = {"ID", "Número", "Logradouro", "Complemento", "Bairro", "Cidade"};
+        int[] widths = {40, 60, 100, 100, 100, 100};
+
+        for (int i = 0; i < headers.length; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        //fim Jtable
+        //começa IO
+        try {
+            
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+            for (int i = 0; i < resultado.size(); i++) {
+                Endereco endereco = resultado.get(i);
+                Cidade cidade = (Cidade) sessao.get(Cidade.class, endereco.getId_end());
+                modelo.addRow(new Object[]{
+                    endereco.getId_end(),
+                    endereco.getNumero(),
+                    endereco.getLogradouro(),
+                    endereco.getComplemento(),
+                    endereco.getBairro(),
+                    cidade.getCidade()});
+            }
+        } catch (HibernateException e) {
+            Log.geraLogBD("admin", "PesquisaEndereco", "Endereco", e.toString());
+        } finally {
+            sessao.close();
+        }
+    }
+    
+    public static void PesquisaCidade(JTable tabela, String busca) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Cidade> resultado = new ArrayList();
+        String sql = "FROM Cidade "
+                + "WHERE cidade LIKE '%" + busca + "%' "
+                + "AND status != 'X' "
+                + "ORDER BY cidade";
+        //padroniza a JTable
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        String[] headers = {"ID", "Nome da Cidade", "UF"};
+        int[] widths = {40, 130, 130};
+
+        for (int i = 0; i < headers.length; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        //fim Jtable
+        //começa IO
+        try {
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+            for (int i = 0; i < resultado.size(); i++) {
+                Cidade cidade = resultado.get(i);
+                modelo.addRow(new Object[]{
+                    cidade.getId_cid(),
+                    cidade.getCidade(),
+                    cidade.getUf()});
+            }
+        } catch (HibernateException e) {
+            Log.geraLogBD("admin", "PesquisaCidade", "Cidade", e.toString());
         } finally {
             sessao.close();
         }
