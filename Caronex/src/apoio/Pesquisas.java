@@ -32,22 +32,20 @@ public class Pesquisas {
         //padroniza a JTable
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        String[] headers = {"ID", "RG", "Nome", "CPF", "Idade", "Responsável", "Email", "Telefone"};
+        int[] widths = {30, 130, 30, 100, 30, 100, 100, 100};
 
-        //verificar o getColumn(não pode ter o numero maior do que o Num de Colunas
-        tabela.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        tabela.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        for (int i = 0; i < headers.length; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
 
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tabela.getColumnModel().getColumn(1).setPreferredWidth(140);
-        tabela.getColumnModel().getColumn(2).setPreferredWidth(140);
-        tabela.getColumnModel().getColumn(3).setPreferredWidth(140);
-        //seta o header
-        tabela.getColumnModel().getColumn(0).setHeaderValue("id");
-        tabela.getColumnModel().getColumn(1).setHeaderValue("ident");
-        tabela.getColumnModel().getColumn(2).setHeaderValue("nome");
-        tabela.getColumnModel().getColumn(3).setHeaderValue("cpf");
+
 
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
@@ -58,14 +56,16 @@ public class Pesquisas {
             resultado = query.list();
             for (int i = 0; i < resultado.size(); i++) {
                 Pessoa pessoa = resultado.get(i);
+                Pessoa pessoa_responsavel = (Pessoa) sessao.get(Pessoa.class, pessoa.getId_responsavel());
                 modelo.addRow(new Object[]{
                     pessoa.getId_pessoa(),
                     pessoa.getIdentidade(),
                     pessoa.getNome(),
                     pessoa.getCpf(),
-                    pessoa.getStatus(),
                     pessoa.getIdade(),
-                    pessoa.getId_responsavel()});
+                    pessoa_responsavel.getNome(),
+                    pessoa.getEmail(),
+                    pessoa.getTelefone()});
             }
         } catch (HibernateException e) {
             Log.geraLogBD("admin", "PesquisaPessoa", "Pessoa", e.toString());
