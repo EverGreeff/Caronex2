@@ -6,18 +6,15 @@
 package telas;
 
 import apoio.Criptografia;
-import apoio.Formatacao;
 import apoio.GerenciarJanelas;
 import apoio.HibernateUtil;
-import apoio.Validacao;
+import apoio.Pesquisas;
 import entidades.Login;
 import entidades.Pessoa;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import static telas.IfrCadPessoa.id_responsavel;
 
 /**
  *
@@ -35,6 +32,12 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
     public IfrCadLogin() {
         initComponents();
         this.setTitle("Cadastrar Usuarios");
+        
+        ctxtTipoPessoa.removeAllItems();
+        ctxtTipoPessoa.addItem("");
+        ctxtTipoPessoa.addItem("Administrador");
+        ctxtTipoPessoa.addItem("Organizador");
+        ctxtTipoPessoa.addItem("Passageiro");
         
     }
     
@@ -80,7 +83,7 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPessoas = new javax.swing.JTable();
+        tblLogin = new javax.swing.JTable();
         tfdBusca = new javax.swing.JLabel();
         txtCampoPesquisa = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
@@ -106,10 +109,10 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
             }
         });
         ctxtTipoPessoa.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 ctxtTipoPessoaCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         ctxtTipoPessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -221,18 +224,18 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Cadastrar", jPanel1);
 
-        tblPessoas.setModel(new javax.swing.table.DefaultTableModel(
+        tblLogin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
-        jScrollPane1.setViewportView(tblPessoas);
+        jScrollPane1.setViewportView(tblLogin);
 
         tfdBusca.setText("Busca");
 
@@ -334,21 +337,23 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String item = (String) ctxtTipoPessoa.getSelectedItem();
         Session sessao = null;
             try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            Transaction transacao = sessao.beginTransaction();
-            Login login = new Login();
-            login.setLogin(txtLogin.getText());
-            login.setSenha(Criptografia.criptoMD5(txtSenha.getText()));
-            login.setStatus("A");
-            login.setId_pessuser(id_admin);
-            
-            sessao.save(login);
-            transacao.commit();
-            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                sessao = HibernateUtil.getSessionFactory().openSession();
+                Transaction transacao = sessao.beginTransaction();
+                Login login = new Login();
+                login.setLogin(txtLogin.getText());
+                login.setSenha(Criptografia.criptoMD5(txtSenha.getText()));
+                login.setStatus("A");
+                login.setId_pessuser(id_admin);
+                login.setTipo_usuario(item);
+
+                sessao.save(login);
+                transacao.commit();
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
             } catch (HibernateException hibEx) {
-            hibEx.printStackTrace();
+                hibEx.printStackTrace();
             } finally {
             sessao.close();
         }
@@ -375,7 +380,7 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCampoPesquisaActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        //new ApresentacaoDAO().popularTabela(tblApresentacao, tfdBusca.getText());
+        Pesquisas.PesquisaUsuario(tblLogin, txtCampoPesquisa.getText());
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -423,7 +428,7 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JTable tblPessoas;
+    private javax.swing.JTable tblLogin;
     private javax.swing.JLabel tfdBusca;
     private javax.swing.JTextField txtCampoPesquisa;
     private javax.swing.JTextField txtLogin;

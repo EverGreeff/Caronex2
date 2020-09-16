@@ -187,7 +187,7 @@ public class Pesquisas {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Endereco> resultado = new ArrayList();
         String sql = "FROM Endereco "
-                + "WHERE bairro LIKE '%" + busca + "%' OR numero LIKE '%" + busca + "%' OR logradouro LIKE '%" + busca + "%'"
+                + "WHERE (bairro LIKE '%" + busca + "%' OR numero LIKE '%" + busca + "%' OR logradouro LIKE '%" + busca + "%') "
                 + "AND status != 'X' "
                 + "ORDER BY id_end";
         //padroniza a JTable
@@ -232,6 +232,54 @@ public class Pesquisas {
         }
     }
     
+    public static void PesquisaPessoaG(JTable tabela, String nome) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Pessoa> resultado = new ArrayList();
+        String sql = "FROM Pessoa "
+                + "WHERE nome LIKE '%" + nome + "%' "
+                + "AND status != 'X'"
+                + "ORDER BY nome";
+        //padroniza a JTable
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        String[] headers = {"ID", "RG", "Nome", "CPF"};
+        int[] widths = {30, 100, 100, 100};
+
+        for (int i = 0; i < headers.length; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+
+
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        //fim Jtable
+        //começa IO
+        try {
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+            for (int i = 0; i < resultado.size(); i++) {
+                Pessoa pessoa = resultado.get(i);
+                Pessoa pessoa_responsavel = (Pessoa) sessao.get(Pessoa.class, pessoa.getId_responsavel());
+                modelo.addRow(new Object[]{
+                    pessoa.getId_pessoa(),
+                    pessoa.getIdentidade(),
+                    pessoa.getNome(),
+                    pessoa.getCpf()});
+            }
+        } catch (HibernateException e) {
+            Log.geraLogBD("admin", "PesquisaPessoaG", "Pessoa", e.toString());
+        } finally {
+            sessao.close();
+        }
+    }
+    
     public static void PesquisaCidade(JTable tabela, String busca) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Cidade> resultado = new ArrayList();
@@ -271,6 +319,50 @@ public class Pesquisas {
             }
         } catch (HibernateException e) {
             Log.geraLogBD("admin", "PesquisaCidade", "Cidade", e.toString());
+        } finally {
+            sessao.close();
+        }
+    }
+    
+    public static void PesquisaUsuario(JTable tabela, String busca) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Login> resultado = new ArrayList();
+        String sql = "FROM Login "
+                + "WHERE login LIKE '%" + busca + "%' "
+                + "AND status != 'X' "
+                + "ORDER BY login";
+        //padroniza a JTable
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        String[] headers = {"ID", "Login", "Tipo Usuario"};
+        int[] widths = {40, 130, 130};
+
+        for (int i = 0; i < headers.length; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        //fim Jtable
+        //começa IO
+        try {
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+            for (int i = 0; i < resultado.size(); i++) {
+                Login login = resultado.get(i);
+                modelo.addRow(new Object[]{
+                    login.getId(),
+                    login.getLogin(),
+                    login.getTipo_usuario()});
+            }
+        } catch (HibernateException e) {
+            Log.geraLogBD("admin", "PesquisaLogin", "Login", e.toString());
         } finally {
             sessao.close();
         }
