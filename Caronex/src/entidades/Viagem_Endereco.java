@@ -20,10 +20,10 @@ public class Viagem_Endereco implements Serializable {
     @Id
     @Column(name = "viagens_id_viagem")
     private int viagens_id_viagem;
-    
+
     @Id
     @Column(name = "endereco_id_end")
-    private String endereco_id_end;
+    private int endereco_id_end;
 
     @Column(name = "descricao")
     private String descricao;
@@ -36,14 +36,6 @@ public class Viagem_Endereco implements Serializable {
         this.viagens_id_viagem = viagens_id_viagem;
     }
 
-    public String getEndereco_id_end() {
-        return endereco_id_end;
-    }
-
-    public void setEndereco_id_end(String endereco_id_end) {
-        this.endereco_id_end = endereco_id_end;
-    }
-
     public String getDescricao() {
         return descricao;
     }
@@ -52,4 +44,11 @@ public class Viagem_Endereco implements Serializable {
         this.descricao = descricao;
     }
 
+    public int getEndereco_id_end() {
+        return endereco_id_end;
+    }
+
+    public void setEndereco_id_end(int endereco_id_end) {
+        this.endereco_id_end = endereco_id_end;
+    }
 }

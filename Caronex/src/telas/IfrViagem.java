@@ -26,17 +26,21 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Rogério H. Klein <rhklein@universo.univates.br>
  */
 public class IfrViagem extends javax.swing.JInternalFrame {
-    
+
     private static IfrViagem tela;
-    static Viagem v;
+    Viagem v;
     TableSorter sorter;
     private int idGrupo;
+    int id_viagem;
 
     static JInternalFrame getInstancia() {
         if (tela == null) {
@@ -50,7 +54,8 @@ public class IfrViagem extends javax.swing.JInternalFrame {
      */
     public IfrViagem() {
         initComponents();
-
+        v = new Viagem();
+        criarViagem();
 
         Formatacao.formatarData(ftfDataSaida);
         Formatacao.formatarHora(ftfHoraSaida);
@@ -520,6 +525,31 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    public void criarViagem() {
+
+        Session sessao = null;
+        sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+
+        try {
+            sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+            transacao = sessao.beginTransaction();
+            v.setStatus("X");
+            v.setId_motorista(1);
+            v.setId_veiculo(1);
+            v.setId_grupo(1);
+            id_viagem = (int) sessao.save(v);
+            v.setId_viagem(id_viagem);
+
+            transacao.commit();
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+    }
+
     private void btnAdcLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdcLocalActionPerformed
         GerenciarJanelas.abreJanela(IfrLocalViagem.getInstancia(v));
     }//GEN-LAST:event_btnAdcLocalActionPerformed
@@ -652,7 +682,7 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         ftfHoraSaida.setText("");
         ftfDataRetorno.setText("");
         ftfHoraRetorno.setText("");
- 
+
         txfNumPessoas.setText("");
         txfIntegrante.setText("");
 

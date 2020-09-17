@@ -7,7 +7,14 @@ package telas;
 
 import apoio.Pesquisas;
 import entidades.Endereco;
+import entidades.Grupo_Pessoa;
 import entidades.Viagem;
+import entidades.Viagem_Endereco;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -24,8 +31,7 @@ public class IfrLocalViagem extends javax.swing.JInternalFrame {
 
     public IfrLocalViagem() {
         initComponents();
-        this.setTitle("Selecionar pessoas do Grupo");
-
+        this.setTitle("Incluir Locais na Viagem");
     }
 
     public static IfrLocalViagem getInstancia(Viagem v) {
@@ -49,12 +55,14 @@ public class IfrLocalViagem extends javax.swing.JInternalFrame {
         txtEndereco = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        txfCidade = new javax.swing.JTextField();
+        txtCidade = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtViagem = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnPesquisar = new javax.swing.JButton();
         cbxPonto = new javax.swing.JComboBox<>();
+        btnSalvar = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,7 +72,7 @@ public class IfrLocalViagem extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Cidade:");
 
-        txfCidade.setEditable(false);
+        txtCidade.setEditable(false);
 
         jLabel1.setText("Tipo Local (Ponto):");
 
@@ -80,6 +88,20 @@ public class IfrLocalViagem extends javax.swing.JInternalFrame {
         });
 
         cbxPonto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Partida", "Parada", "Destino" }));
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,18 +119,25 @@ public class IfrLocalViagem extends javax.swing.JInternalFrame {
                 .addContainerGap(200, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(btnPesquisar)
-                .addGap(64, 64, 64))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPesquisar)
+                        .addGap(64, 64, 64))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSalvar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnFechar)
+                        .addGap(17, 17, 17))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,8 +158,12 @@ public class IfrLocalViagem extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(181, Short.MAX_VALUE))
+                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnFechar))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,6 +173,61 @@ public class IfrLocalViagem extends javax.swing.JInternalFrame {
         DlgEndereco dlgEndereco = new DlgEndereco(null, true, txtEndereco.getText(), this);
         dlgEndereco.setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
+    public boolean validaInsert() {
+
+        errors = "";
+
+        //NomeGrupo
+        if (txtEndereco.getText() == "" || txtEndereco.getText() == null) {
+            errors += "Selecione um Endereco - ";
+        }
+        if (cbxPonto.getSelectedIndex() < 1) {
+            {
+                errors += "Selecione um tipo de destino";
+            }
+            return errors.equals("");
+        }
+        return errors.equals("");
+    }
+
+    public void salvar(int idEndereco) {
+
+        Session sessao = null;
+        sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+        Transaction transacao = sessao.beginTransaction();
+
+        try {
+            sessao = apoio.HibernateUtil.getSessionFactory().openSession();
+            transacao = sessao.beginTransaction();
+
+            Viagem_Endereco viEnd = new Viagem_Endereco();
+            viEnd.setViagens_id_viagem(id_viagem);
+            viEnd.setEndereco_id_end(idEndereco);
+            viEnd.setDescricao(errors);
+            sessao.save(viEnd);
+
+            transacao.commit();
+            JOptionPane.showMessageDialog(null, "Pessoas Salvas no Grupo com sucesso!");
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+
+    }
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if (validaInsert()) {
+
+            salvar(e.getId_end());
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,13 +265,15 @@ public class IfrLocalViagem extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxPonto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField txfCidade;
+    private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtViagem;
     // End of variables declaration//GEN-END:variables
