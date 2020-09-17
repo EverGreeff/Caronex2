@@ -179,6 +179,11 @@ public class Main extends javax.swing.JFrame {
         jmAjuda.setText("Ajuda");
 
         jimSobre.setText("Sobre");
+        jimSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimSobreActionPerformed(evt);
+            }
+        });
         jmAjuda.add(jimSobre);
 
         jMenuBar1.add(jmAjuda);
@@ -235,6 +240,10 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         GerenciarJanelas.abreJanela(IfrCadEndereco.getInstancia());
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jimSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimSobreActionPerformed
+        GerenciarJanelas.abreJanela(IfrAjuda.getInstancia());
+    }//GEN-LAST:event_jimSobreActionPerformed
 
     /**
      * @param args the command line arguments
