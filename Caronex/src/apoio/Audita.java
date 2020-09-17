@@ -28,8 +28,6 @@ public class Audita {
 
         audita.setAction(acao);
         audita.setDate(new Date());
-        audita.setTable(tabela);
-        audita.setUser(user);
 
         Session sessao = null;
         sessao = apoio.HibernateUtil.getSessionFactory().openSession();

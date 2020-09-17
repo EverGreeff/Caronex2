@@ -158,7 +158,12 @@ public class Main extends javax.swing.JFrame {
         });
         jmControles.add(jimInfoGrupo);
 
-        jMenuItem5.setText("Next");
+        jMenuItem5.setText("Viagem");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jmControles.add(jMenuItem5);
 
         jMenuItem6.setText("Next");
@@ -244,6 +249,10 @@ public class Main extends javax.swing.JFrame {
     private void jimSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimSobreActionPerformed
         GerenciarJanelas.abreJanela(IfrAjuda.getInstancia());
     }//GEN-LAST:event_jimSobreActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        GerenciarJanelas.abreJanela(IfrViagem.getInstancia());
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

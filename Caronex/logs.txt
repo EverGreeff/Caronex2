@@ -1,0 +1,24 @@
+Usuário: admin
+Método: salvar
+Classe: dao
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not execute statement
+
+Horário: 02/09/2020 19:09:04
+
+Usuário: admin
+Método: PesquisaPessoa
+Classe: Pessoa
+
+Erro: org.hibernate.exception.GenericJDBCException: could not extract ResultSet
+
+Horário: 02/09/2020 19:09:06
+
+Usuário: admin
+Método: PesquisaPessoa
+Classe: Pessoa
+
+Erro: org.hibernate.exception.GenericJDBCException: could not extract ResultSet
+
+Horário: 02/09/2020 19:09:06
+

@@ -15,25 +15,19 @@ import javax.persistence.*;
  * @author roger
  */
 @Entity
-@Table(name = "cidade")
+@Table(name = "pessoa_auditoria")
 
 public class Auditoria implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "log_id")
     private int id;
 
-    @Column(name = "user")
-    private int user;
-
-    @Column(name = "action")
+    @Column(name = "operacao_realizada")
     private String action;
-
-    @Column(name = "table")
-    private String table;
-
-    @Column(name = "date")
+        
+    @Column(name = "data_criacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
@@ -45,28 +39,12 @@ public class Auditoria implements Serializable {
         this.id = id;
     }
 
-    public int getUser() {
-        return user;
-    }
-
-    public void setUser(int user) {
-        this.user = user;
-    }
-
     public String getAction() {
         return action;
     }
 
     public void setAction(String action) {
         this.action = action;
-    }
-
-    public String getTable() {
-        return table;
-    }
-
-    public void setTable(String table) {
-        this.table = table;
     }
 
     public Date getDate() {
@@ -79,7 +57,7 @@ public class Auditoria implements Serializable {
 
     @Override
     public String toString() {
-        return "Auditoria{" + "id=" + id + ", user=" + user + ", action=" + action + ", table=" + table + ", date=" + date + '}';
+        return "Auditoria{" + "id=" + id + ", action=" + action + ", date=" + date + '}';
     }
 
     @Override
