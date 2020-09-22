@@ -15,6 +15,7 @@ import javax.swing.UIManager;
 public class Main extends javax.swing.JFrame {
 
     GerenciarJanelas gerenciarJanelas;
+    String tipoUser;
 
     /**
      * Creates new form Main
@@ -33,6 +34,31 @@ public class Main extends javax.swing.JFrame {
 
     }
 
+    void user(String tu) {
+        tipoUser = tu;
+        jLabel2.setText("Tipo User: " + tu);
+        if (tu == "Administrador") {
+            //acesso a tudo
+        } else if (tu.equals("Organizador")) {
+            jimCidade.setEnabled(false);
+            jimEndereco.setEnabled(false);
+            jimRelatorio1.setEnabled(false);
+            jimUsuarios.setEnabled(false);
+            jimVeiculo.setEnabled(false);
+            jimViagem.setEnabled(false);
+        } else if (tu.equals("Passageiro")) {
+            jimCidade.setEnabled(false);
+            jimEndereco.setEnabled(false);
+            jimGrupos.setEnabled(false);
+
+            jimPessoas.setEnabled(false);
+            jimRelatorio1.setEnabled(false);
+            jimUsuarios.setEnabled(false);
+            jimVeiculo.setEnabled(false);
+            jimViagem.setEnabled(false);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,20 +70,21 @@ public class Main extends javax.swing.JFrame {
 
         dktInicial = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmCadastros = new javax.swing.JMenu();
         jimPessoas = new javax.swing.JMenuItem();
         jimGrupos = new javax.swing.JMenuItem();
         jimUsuarios = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jimVeiculo = new javax.swing.JMenuItem();
+        jimCidade = new javax.swing.JMenuItem();
+        jimEndereco = new javax.swing.JMenuItem();
         jimFechar = new javax.swing.JMenuItem();
         jmControles = new javax.swing.JMenu();
         jimInfoGrupo = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jimViagem = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jmRelatorios = new javax.swing.JMenu();
         jimRelatorio1 = new javax.swing.JMenuItem();
         jimRelatorio2 = new javax.swing.JMenuItem();
         jmAjuda = new javax.swing.JMenu();
@@ -71,21 +98,29 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CaronexLogo.png"))); // NOI18N
 
+        jLabel2.setText("User: AcessoRapido");
+
         dktInicial.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        dktInicial.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout dktInicialLayout = new javax.swing.GroupLayout(dktInicial);
         dktInicial.setLayout(dktInicialLayout);
         dktInicialLayout.setHorizontalGroup(
             dktInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dktInicialLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addGroup(dktInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                    .addGroup(dktInicialLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         dktInicialLayout.setVerticalGroup(
             dktInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dktInicialLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jmCadastros.setText("Cadastros");
@@ -114,29 +149,29 @@ public class Main extends javax.swing.JFrame {
         });
         jmCadastros.add(jimUsuarios);
 
-        jMenuItem1.setText("Veiculo");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jimVeiculo.setText("Veiculo");
+        jimVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jimVeiculoActionPerformed(evt);
             }
         });
-        jmCadastros.add(jMenuItem1);
+        jmCadastros.add(jimVeiculo);
 
-        jMenuItem2.setText("Cidade");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jimCidade.setText("Cidade");
+        jimCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jimCidadeActionPerformed(evt);
             }
         });
-        jmCadastros.add(jMenuItem2);
+        jmCadastros.add(jimCidade);
 
-        jMenuItem3.setText("Endereço");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jimEndereco.setText("Endereço");
+        jimEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jimEnderecoActionPerformed(evt);
             }
         });
-        jmCadastros.add(jMenuItem3);
+        jmCadastros.add(jimEndereco);
 
         jimFechar.setText("Fechar");
         jimFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,28 +193,28 @@ public class Main extends javax.swing.JFrame {
         });
         jmControles.add(jimInfoGrupo);
 
-        jMenuItem5.setText("Viagem");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jimViagem.setText("Viagem");
+        jimViagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jimViagemActionPerformed(evt);
             }
         });
-        jmControles.add(jMenuItem5);
+        jmControles.add(jimViagem);
 
         jMenuItem6.setText("Next");
         jmControles.add(jMenuItem6);
 
         jMenuBar1.add(jmControles);
 
-        jMenu3.setText("Relatorios");
+        jmRelatorios.setText("Relatorios");
 
         jimRelatorio1.setText("Relatorio 1");
-        jMenu3.add(jimRelatorio1);
+        jmRelatorios.add(jimRelatorio1);
 
         jimRelatorio2.setText("Relatorio 2");
-        jMenu3.add(jimRelatorio2);
+        jmRelatorios.add(jimRelatorio2);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jmRelatorios);
 
         jmAjuda.setText("Ajuda");
 
@@ -227,32 +262,33 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jimUsuariosActionPerformed
 
     private void jimInfoGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimInfoGrupoActionPerformed
-        GerenciarJanelas.abreJanela(IfrGrupoPessoa.getInstancia());
+        GerenciarJanelas.abreJanela(IfrGrupoPessoa.getInstancia(tipoUser));
     }//GEN-LAST:event_jimInfoGrupoActionPerformed
 
     private void jimFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimFecharActionPerformed
         this.dispose();
+        System.exit(EXIT_ON_CLOSE);
     }//GEN-LAST:event_jimFecharActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jimVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimVeiculoActionPerformed
         GerenciarJanelas.abreJanela(IfrCadVeiculo.getInstancia());
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jimVeiculoActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jimCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimCidadeActionPerformed
         GerenciarJanelas.abreJanela(IfrCadCidade.getInstancia());
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jimCidadeActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jimEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimEnderecoActionPerformed
         GerenciarJanelas.abreJanela(IfrCadEndereco.getInstancia());
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jimEnderecoActionPerformed
 
     private void jimSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimSobreActionPerformed
         GerenciarJanelas.abreJanela(IfrAjuda.getInstancia());
     }//GEN-LAST:event_jimSobreActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jimViagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimViagemActionPerformed
         GerenciarJanelas.abreJanela(IfrViagem.getInstancia());
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jimViagemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,13 +328,11 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dktInicial;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu3;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jimCidade;
+    private javax.swing.JMenuItem jimEndereco;
     private javax.swing.JMenuItem jimFechar;
     private javax.swing.JMenuItem jimGrupos;
     private javax.swing.JMenuItem jimInfoGrupo;
@@ -307,8 +341,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jimRelatorio2;
     private javax.swing.JMenuItem jimSobre;
     private javax.swing.JMenuItem jimUsuarios;
+    private javax.swing.JMenuItem jimVeiculo;
+    private javax.swing.JMenuItem jimViagem;
     private javax.swing.JMenu jmAjuda;
     private javax.swing.JMenu jmCadastros;
     private javax.swing.JMenu jmControles;
+    private javax.swing.JMenu jmRelatorios;
     // End of variables declaration//GEN-END:variables
+
 }

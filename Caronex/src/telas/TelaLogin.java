@@ -127,9 +127,11 @@ public class TelaLogin extends javax.swing.JFrame {
     private void BotaoLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLogin
         if (!tfLogin.getText().equals("") && !String.valueOf(pfSenha.getPassword()).equals("")) {
             try {
-                if (Validacoes.logar(tfLogin.getText(), Criptografia.criptoMD5(String.valueOf(pfSenha.getPassword())))) {
+                String tu = Validacoes.logar(tfLogin.getText(), Criptografia.criptoMD5(String.valueOf(pfSenha.getPassword())));
+                if (tu != "") {
                     Main tp = new Main();
                     tp.setVisible(true);
+                    tp.user(tu);
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Verifique se a Senha ou o Login estão corretos!", "Login ou Senha incorretos!", JOptionPane.WARNING_MESSAGE);

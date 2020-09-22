@@ -17,8 +17,8 @@ import org.hibernate.Session;
 
 public class Validacoes {
 
-    public static boolean logar(String login, String senha) {
-        boolean pas = false;
+    public static String logar(String login, String senha) {
+        String tipo_user = "";
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Login> resultado = new ArrayList();
         String sql = "FROM Login "
@@ -30,7 +30,7 @@ public class Validacoes {
                 Login loginDB = resultado.get(i);
                 if (loginDB.getLogin().equals(login) && loginDB.getSenha().equals(senha)) {
                     if (loginDB.getStatus().equals("A")) {
-                        pas = true;
+                        tipo_user = loginDB.getTipo_usuario();
                     }
                 }
             }
@@ -39,7 +39,7 @@ public class Validacoes {
         } finally {
             sessao.close();
         }
-        return pas;
+        return tipo_user;
     }
 
 }

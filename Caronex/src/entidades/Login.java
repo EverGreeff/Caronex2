@@ -12,6 +12,7 @@ import javax.persistence.*;
  *
  * @author roger
  */
+
 @Entity
 @Table(name = "login")
 
@@ -27,10 +28,10 @@ public class Login implements Serializable {
 
     @Column(name = "senha")
     private String senha;
-    
+
     @Column(name = "tipo_usuario")
     private String tipo_usuario;
-    
+
     @Column(name = "status")
     private String status;
 

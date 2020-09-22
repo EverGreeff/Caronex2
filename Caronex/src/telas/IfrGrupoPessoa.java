@@ -31,6 +31,7 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     String errors;
     int id;
     Grupo u;
+    String tipoUser;
 
     /**
      * Creates new form IfrGrupoPessoa
@@ -53,9 +54,11 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
         return tela;
     }
 
-    public static IfrGrupoPessoa getInstancia() {
+    public static IfrGrupoPessoa getInstancia(String tipoUser) {
         if (tela == null) {
             tela = new IfrGrupoPessoa();
+            tela.permissoes(tipoUser);
+
         }
         return tela;
     }
@@ -63,6 +66,14 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     private void fechaTela() {
         GerenciarJanelas.fecharJanela(tela);
         tela = null;
+    }
+
+    public void permissoes(String tipoUser) {
+        if (tipoUser.equals("Organizador") || tipoUser.equals("Passageiro")) {
+            btnSalvar.setEnabled(false);
+            btnAdd.setEnabled(false);
+            btnRem.setEnabled(false);
+        }
     }
 
     public void salvar(int idGrupo, JTable tgp) {
@@ -83,7 +94,6 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
                 sessao.save(grupo);
             }
 
-            
             transacao.commit();
             JOptionPane.showMessageDialog(null, "Pessoas Salvas no Grupo com sucesso!");
         } catch (HibernateException hibEx) {
