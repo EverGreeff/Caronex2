@@ -73,6 +73,7 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
             btnSalvar.setEnabled(false);
             btnAdd.setEnabled(false);
             btnRem.setEnabled(false);
+            
         }
     }
 
