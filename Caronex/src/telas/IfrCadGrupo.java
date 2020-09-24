@@ -337,9 +337,12 @@ public class IfrCadGrupo extends javax.swing.JInternalFrame {
 
             if (id > -1) {
                 grupo.setId_grupo(id);
-                atualizar(grupo);
+                DaoGenerico.getInstance().atualizar(grupo);
+                //atualizar(grupo);
+
             } else {
-                salvar(grupo);
+                //salvar(grupo);
+                DaoGenerico.getInstance().inserir(grupo);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Favor, verifique os dados");

@@ -120,7 +120,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoSair(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSair
-        //HibernateUtil.getSessionFactory().close();
+       
         this.dispose();
     }//GEN-LAST:event_BotaoSair
 
@@ -153,7 +153,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoRapido
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        //HibernateUtil.getSessionFactory().close();
+        System.exit(EXIT_ON_CLOSE);
     }//GEN-LAST:event_formWindowClosed
 
     /**

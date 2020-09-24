@@ -83,4 +83,23 @@ public class Log {
             System.err.println("IOException: " + ioe.getMessage());
         }
     }
+    
+    public static void geraLogBD(String usuario, String metodo, Class classe, String erro) {
+        
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String space = System.lineSeparator();
+
+        try {
+            String filename = "logs.txt";
+
+            FileWriter fw = new FileWriter(filename, true);
+
+            fw.write("Usuário: " + usuario + space + "Método: " + metodo + space + "Classe: " + classe + space + "\nErro: " + erro + space + "\nHorário: " + dateFormat.format(new Date()) + space + space);
+
+            fw.close();
+
+        } catch (IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());
+        }
+    }
 }
