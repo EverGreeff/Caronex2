@@ -26,11 +26,7 @@ public class Main extends javax.swing.JFrame {
         this.setTitle("Caronex");
         this.gerenciarJanelas = new GerenciarJanelas(dktInicial);
         this.setExtendedState(MAXIMIZED_BOTH);
-        try {
-            //UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel.class");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+
 
     }
 

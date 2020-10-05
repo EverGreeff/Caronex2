@@ -120,7 +120,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoSair(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSair
-       
+
         this.dispose();
     }//GEN-LAST:event_BotaoSair
 
