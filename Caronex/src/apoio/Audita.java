@@ -49,4 +49,12 @@ public class Audita {
         }
         return true;
     }
+
+    public static boolean gerarAuditoria(String tipoUser) {
+        
+        
+        
+        return false;
+    }
+
 }
