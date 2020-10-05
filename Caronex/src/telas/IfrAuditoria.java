@@ -114,7 +114,7 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
 
     private void btnGeraArquivoAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeraArquivoAuditoriaActionPerformed
 
-        Audita.gerarAuditoria(tipoUser);
+        Audita.gerarAuditoria();
 
     }//GEN-LAST:event_btnGeraArquivoAuditoriaActionPerformed
 

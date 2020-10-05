@@ -15,6 +15,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import entidades.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -32,7 +37,7 @@ public class Pesquisas {
         //padroniza a JTable
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         String[] headers = {"ID", "RG", "Nome", "CPF", "Idade", "Responsável", "Email", "Telefone"};
         int[] widths = {30, 130, 30, 100, 30, 100, 100, 100};
 
@@ -44,8 +49,6 @@ public class Pesquisas {
             //seta o header
             tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
         }
-
-
 
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
@@ -182,7 +185,7 @@ public class Pesquisas {
             sessao.close();
         }
     }
-    
+
     public static void PesquisaEndereco(JTable tabela, String busca) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Endereco> resultado = new ArrayList();
@@ -211,7 +214,7 @@ public class Pesquisas {
         //fim Jtable
         //começa IO
         try {
-            
+
             org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
             for (int i = 0; i < resultado.size(); i++) {
@@ -231,7 +234,7 @@ public class Pesquisas {
             sessao.close();
         }
     }
-    
+
     public static void PesquisaPessoaG(JTable tabela, String nome) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Pessoa> resultado = new ArrayList();
@@ -242,7 +245,7 @@ public class Pesquisas {
         //padroniza a JTable
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         String[] headers = {"ID", "RG", "Nome", "CPF"};
         int[] widths = {30, 100, 100, 100};
 
@@ -254,8 +257,6 @@ public class Pesquisas {
             //seta o header
             tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
         }
-
-
 
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
@@ -279,7 +280,7 @@ public class Pesquisas {
             sessao.close();
         }
     }
-    
+
     public static void PesquisaCidade(JTable tabela, String busca) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Cidade> resultado = new ArrayList();
@@ -323,7 +324,7 @@ public class Pesquisas {
             sessao.close();
         }
     }
-    
+
     public static void PesquisaUsuario(JTable tabela, String busca) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Login> resultado = new ArrayList();
@@ -363,6 +364,37 @@ public class Pesquisas {
             }
         } catch (HibernateException e) {
             Log.geraLogBD("admin", "PesquisaLogin", "Login", e.toString());
+        } finally {
+            sessao.close();
+        }
+    }
+
+    public static void PesquisaAuditoria() throws IOException {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Auditoria> resultado = new ArrayList();
+        String sql = "FROM Auditoria "
+                + "ORDER BY log_id";
+
+        //começa IO
+        try {
+            
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String space = System.lineSeparator();
+            String filename = "logs" + dateFormat.format(new Date()) + space + space + ".txt";
+            FileWriter fw = new FileWriter(filename, true);
+
+            for (int i = 0; i < resultado.size(); i++) {
+                Auditoria audita = resultado.get(i);
+                fw.write(audita.getId() + audita.getAction() + audita.getClass().getName() + audita.getDate());
+            }
+            
+            fw.close();
+            
+        } catch (HibernateException e) {
+            Log.geraLogBD("admin", "GeracaoArquivo", "Auditoria", e.toString());
         } finally {
             sessao.close();
         }

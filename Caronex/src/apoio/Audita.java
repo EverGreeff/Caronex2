@@ -6,6 +6,10 @@
 package apoio;
 
 import entidades.Auditoria;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -50,11 +54,22 @@ public class Audita {
         return true;
     }
 
-    public static boolean gerarAuditoria(String tipoUser) {
-        
-        
-        
-        return false;
+    public static void gerarAuditoria() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String space = System.lineSeparator();
+
+        try {
+            String filename = "logs" + dateFormat.format(new Date()) + space + space + ".txt";
+
+            FileWriter fw = new FileWriter(filename, true);
+
+            fw.write("" + "");
+
+            fw.close();
+
+        } catch (IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());
+        }
     }
 
 }
