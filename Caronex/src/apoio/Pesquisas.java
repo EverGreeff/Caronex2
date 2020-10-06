@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
@@ -134,6 +135,53 @@ public class Pesquisas {
                     grupo.getId_admin()
                 });
             }
+        } catch (HibernateException e) {
+            Log.geraLogBD("admin", "PesquisaGrupo", "Grupo", e.toString());
+        } finally {
+            sessao.close();
+        }
+    }
+
+    public static void PesquisaGrupoPessoa(JTable tabela, int idGrupo) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Grupo> resultado = new ArrayList();
+        String sql = "FROM Grupo "
+                + "WHERE id_grupo = " + idGrupo + " "
+                + "AND status != 'X' "
+                + "ORDER BY id_grupo";
+        //padroniza a JTable
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        String[] headers = {"ID", "RG", "Nome", "CPF"};
+        int[] widths = {30, 100, 100, 100};
+
+        for (int i = 0; i < headers.length; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        //fim Jtable
+        //começa IO
+        try {
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+
+            Grupo grupo = resultado.get(0);
+
+            for (Pessoa pessoa : grupo.getPessoas()) {
+                modelo.addRow(new Object[]{
+                    pessoa.getId_pessoa(),
+                    pessoa.getIdentidade(),
+                    pessoa.getNome(),
+                    pessoa.getCpf()});
+            }
+
         } catch (HibernateException e) {
             Log.geraLogBD("admin", "PesquisaGrupo", "Grupo", e.toString());
         } finally {
