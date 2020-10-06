@@ -57,7 +57,7 @@ public class Auditoria implements Serializable {
 
     @Override
     public String toString() {
-        return "Auditoria{" + "id=" + id + ", action=" + action + ", date=" + date + '}';
+        return "Auditoria{" + "id=" + id + ", action=" + action + ", date=" + date + "}\n";
     }
 
     @Override

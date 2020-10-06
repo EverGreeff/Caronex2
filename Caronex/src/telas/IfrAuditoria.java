@@ -7,6 +7,10 @@ package telas;
 
 import apoio.Audita;
 import apoio.GerenciarJanelas;
+import apoio.Pesquisas;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,7 +18,7 @@ import apoio.GerenciarJanelas;
  */
 public class IfrAuditoria extends javax.swing.JInternalFrame {
 
-    private static String tipoUser;
+    private String tipoUser;
     private static IfrAuditoria tela;
 
     public static IfrAuditoria getInstancia() {
@@ -63,7 +67,7 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
 
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtArea = new javax.swing.JTextArea();
         btnGeraArquivoAuditoria = new javax.swing.JToggleButton();
 
         setClosable(true);
@@ -72,9 +76,9 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel4.setText("Caronex: Sistema de Caronas");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
+        jScrollPane1.setViewportView(txtArea);
 
         btnGeraArquivoAuditoria.setText("Gerar Arquivo da Auditoria");
         btnGeraArquivoAuditoria.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +118,11 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
 
     private void btnGeraArquivoAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeraArquivoAuditoriaActionPerformed
 
-        Audita.gerarAuditoria();
+        try {
+            Pesquisas.PesquisaAuditoria(txtArea);
+        } catch (IOException ex) {
+            Logger.getLogger(IfrAuditoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btnGeraArquivoAuditoriaActionPerformed
 
@@ -123,6 +131,6 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
     private javax.swing.JToggleButton btnGeraArquivoAuditoria;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txtArea;
     // End of variables declaration//GEN-END:variables
 }

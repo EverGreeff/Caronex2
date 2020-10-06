@@ -120,7 +120,6 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoSair(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSair
-
         this.dispose();
     }//GEN-LAST:event_BotaoSair
 
@@ -128,7 +127,7 @@ public class TelaLogin extends javax.swing.JFrame {
         if (!tfLogin.getText().equals("") && !String.valueOf(pfSenha.getPassword()).equals("")) {
             try {
                 String tu = Validacoes.logar(tfLogin.getText(), Criptografia.criptoMD5(String.valueOf(pfSenha.getPassword())));
-                if (tu != "") {
+                if (!tu.equals("")) {
                     Main tp = new Main();
                     tp.setVisible(true);
                     tp.user(tu);
@@ -153,7 +152,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoRapido
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        System.exit(EXIT_ON_CLOSE);
+        
     }//GEN-LAST:event_formWindowClosed
 
     /**

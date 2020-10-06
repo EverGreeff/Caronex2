@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -369,7 +371,7 @@ public class Pesquisas {
         }
     }
 
-    public static void PesquisaAuditoria() throws IOException {
+    public static void PesquisaAuditoria(JTextArea txtArea) throws IOException {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Auditoria> resultado = new ArrayList();
         String sql = "FROM Auditoria "
@@ -377,22 +379,24 @@ public class Pesquisas {
 
         //começa IO
         try {
-            
+
             org.hibernate.Query query = sessao.createQuery(sql);
             resultado = query.list();
 
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             String space = System.lineSeparator();
-            String filename = "logs" + dateFormat.format(new Date()) + space + space + ".txt";
+            String filename = "Auditoria.txt";
             FileWriter fw = new FileWriter(filename, true);
 
             for (int i = 0; i < resultado.size(); i++) {
                 Auditoria audita = resultado.get(i);
-                fw.write(audita.getId() + audita.getAction() + audita.getClass().getName() + audita.getDate());
+                fw.write(audita.toString());
+                txtArea.setText(txtArea.getText() + audita.toString());
             }
-            
             fw.close();
-            
+
+            JOptionPane.showMessageDialog(null, "Arquivo Gerado com sucesso!!");
+
         } catch (HibernateException e) {
             Log.geraLogBD("admin", "GeracaoArquivo", "Auditoria", e.toString());
         } finally {

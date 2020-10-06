@@ -59,7 +59,7 @@ public class Audita {
         String space = System.lineSeparator();
 
         try {
-            String filename = "logs" + dateFormat.format(new Date()) + space + space + ".txt";
+            String filename = "Auditoria.txt";
 
             FileWriter fw = new FileWriter(filename, true);
 

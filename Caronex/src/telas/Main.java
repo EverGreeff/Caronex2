@@ -26,11 +26,15 @@ public class Main extends javax.swing.JFrame {
         this.setTitle("Caronex");
         this.gerenciarJanelas = new GerenciarJanelas(dktInicial);
         this.setExtendedState(MAXIMIZED_BOTH);
-
+        try {
+            UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel.class");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
     }
 
-    void user(String tu) {
+    public void user(String tu) {
         tipoUser = tu;
         jLabel2.setText("Tipo User: " + tu);
         if (tu == "Administrador") {
@@ -296,7 +300,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jimViagemActionPerformed
 
     private void jimAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimAuditoriaActionPerformed
-        GerenciarJanelas.abreJanela(IfrGrupoPessoa.getInstancia(tipoUser));
+        GerenciarJanelas.abreJanela(IfrAuditoria.getInstancia());
     }//GEN-LAST:event_jimAuditoriaActionPerformed
 
     /**
