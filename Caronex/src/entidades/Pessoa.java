@@ -6,7 +6,7 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -19,7 +19,7 @@ public class Pessoa implements Serializable {
 
     private int id_pessoa;
     
-    private Set<Grupo> grupos;
+    private List<Grupo> grupos;
 
     private String identidade;
 
@@ -126,11 +126,11 @@ public class Pessoa implements Serializable {
                 @JoinColumn(name = "id_pessoa")},
             inverseJoinColumns = {
                 @JoinColumn(name = "id_grupo")})
-    public Set<Grupo> getGrupos() {
+    public List<Grupo> getGrupos() {
         return grupos;
     }
 
-    public void setGrupos(Set<Grupo> grupos) {
+    public void setGrupos(List<Grupo> grupos) {
         this.grupos = grupos;
     }
 }

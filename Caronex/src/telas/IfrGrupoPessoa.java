@@ -349,6 +349,8 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     void trazerGrupo(Grupo grupo) {
         u = grupo;
         txtNomeGrupo.setText(grupo.getNome_grupo());
+        Pesquisas.PesquisaGrupoPessoa(tblGrupoPessoas, grupo.getId_grupo());        
+        
     }
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -389,6 +391,7 @@ public class IfrGrupoPessoa extends javax.swing.JInternalFrame {
     private void btnGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrupoActionPerformed
         DlgGrupo dlgGrupo = new DlgGrupo(null, true, txtNomeGrupo.getText(), this);
         dlgGrupo.setVisible(true);
+        
     }//GEN-LAST:event_btnGrupoActionPerformed
 
 
