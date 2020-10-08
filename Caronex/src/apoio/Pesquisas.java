@@ -403,5 +403,47 @@ public class Pesquisas {
             sessao.close();
         }
     }
+    
+    public static void PesquisaAuditoriaDois(JTable tabela, String data) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Auditoria> resultado = new ArrayList();
+        String sql = "FROM Auditoria "
+                + "WHERE data_criacao >= '" + data + "'";
+        //padroniza a JTable
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        String[] headers = {"ID", "Data", "Operação Realizada"};
+        int[] widths = {20, 100, 200};
+
+        for (int i = 0; i < headers.length; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        //fim Jtable
+        //começa IO
+        try {
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+            for (int i = 0; i < resultado.size(); i++) {
+                Auditoria auditoria = resultado.get(i);
+                modelo.addRow(new Object[]{
+                    auditoria.getId(),
+                    auditoria.getDate(),
+                    auditoria.getAction()});
+            }
+        } catch (HibernateException e) {
+            Log.geraLogBD("admin", "PesquisaLogin", "Login", e.toString());
+        } finally {
+            sessao.close();
+        }
+    }
 
 }

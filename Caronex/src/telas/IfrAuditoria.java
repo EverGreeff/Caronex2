@@ -6,7 +6,9 @@
 package telas;
 
 import apoio.Audita;
+import apoio.Formatacao;
 import apoio.GerenciarJanelas;
+import apoio.Log;
 import apoio.Pesquisas;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -33,6 +35,7 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
      */
     public IfrAuditoria() {
         initComponents();
+        Formatacao.formatarData(ftfData);
     }
 
     public static IfrAuditoria getInstancia(String tipoUser) {
@@ -66,9 +69,11 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtArea = new javax.swing.JTextArea();
         btnGeraArquivoAuditoria = new javax.swing.JToggleButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tAuditoria = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        ftfData = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setFrameIcon(null);
@@ -76,16 +81,28 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel4.setText("Caronex: Sistema de Caronas");
 
-        txtArea.setColumns(20);
-        txtArea.setRows(5);
-        jScrollPane1.setViewportView(txtArea);
-
         btnGeraArquivoAuditoria.setText("Gerar Arquivo da Auditoria");
         btnGeraArquivoAuditoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGeraArquivoAuditoriaActionPerformed(evt);
             }
         });
+
+        tAuditoria.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        jScrollPane2.setViewportView(tAuditoria);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Data");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,10 +113,15 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGeraArquivoAuditoria)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnGeraArquivoAuditoria)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,29 +130,37 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGeraArquivoAuditoria))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGeraArquivoAuditoria)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGeraArquivoAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeraArquivoAuditoriaActionPerformed
-
-        try {
-            Pesquisas.PesquisaAuditoria(txtArea);
-        } catch (IOException ex) {
-            Logger.getLogger(IfrAuditoria.class.getName()).log(Level.SEVERE, null, ex);
+        
+        String data = "";
+        if (!ftfData.getText().contains("_")) {
+            data = Formatacao.ajustaDataAMD(ftfData.getText());
         }
+        Pesquisas.PesquisaAuditoriaDois(tAuditoria, data);
+        Log.geraCSV(tAuditoria);
 
     }//GEN-LAST:event_btnGeraArquivoAuditoriaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnGeraArquivoAuditoria;
+    private javax.swing.JFormattedTextField ftfData;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtArea;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tAuditoria;
     // End of variables declaration//GEN-END:variables
 }
