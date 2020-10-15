@@ -102,8 +102,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jimRelatorio1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Relatorio 1"/>
+                <Property name="text" type="java.lang.String" value="Viagens"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jimRelatorio1ActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jimRelatorio2">
               <Properties>

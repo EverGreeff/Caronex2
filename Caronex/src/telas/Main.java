@@ -209,7 +209,12 @@ public class Main extends javax.swing.JFrame {
 
         jmRelatorios.setText("Relatorios");
 
-        jimRelatorio1.setText("Relatorio 1");
+        jimRelatorio1.setText("Viagens");
+        jimRelatorio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimRelatorio1ActionPerformed(evt);
+            }
+        });
         jmRelatorios.add(jimRelatorio1);
 
         jimRelatorio2.setText("Relatorio 2");
@@ -302,6 +307,12 @@ public class Main extends javax.swing.JFrame {
     private void jimAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimAuditoriaActionPerformed
         GerenciarJanelas.abreJanela(IfrAuditoria.getInstancia());
     }//GEN-LAST:event_jimAuditoriaActionPerformed
+
+    private void jimRelatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimRelatorio1ActionPerformed
+        FrmPesquisaViagem pesquisa = new FrmPesquisaViagem();
+        
+        pesquisa.setVisible(true);
+    }//GEN-LAST:event_jimRelatorio1ActionPerformed
 
     /**
      * @param args the command line arguments
