@@ -218,6 +218,11 @@ public class Main extends javax.swing.JFrame {
         jmRelatorios.add(jimRelatorio1);
 
         jimRelatorio2.setText("Relatorio 2");
+        jimRelatorio2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimRelatorio2ActionPerformed(evt);
+            }
+        });
         jmRelatorios.add(jimRelatorio2);
 
         jMenuBar1.add(jmRelatorios);
@@ -309,10 +314,16 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jimAuditoriaActionPerformed
 
     private void jimRelatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimRelatorio1ActionPerformed
-        FrmPesquisaViagem pesquisa = new FrmPesquisaViagem();
         
-        pesquisa.setVisible(true);
+        GerenciarJanelas.abreJanela(FrmPesquisaViagem1.getInstancia());
+//        FrmPesquisaViagem pesquisa = new FrmPesquisaViagem();
+//        
+//        pesquisa.setVisible(true);
     }//GEN-LAST:event_jimRelatorio1ActionPerformed
+
+    private void jimRelatorio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimRelatorio2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jimRelatorio2ActionPerformed
 
     /**
      * @param args the command line arguments
