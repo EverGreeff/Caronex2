@@ -6,6 +6,9 @@
 package telas;
 
 import apoio.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
@@ -90,6 +93,7 @@ public class Main extends javax.swing.JFrame {
         jmAjuda = new javax.swing.JMenu();
         jimAuditoria = new javax.swing.JMenuItem();
         jimSobre = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -245,6 +249,14 @@ public class Main extends javax.swing.JFrame {
         });
         jmAjuda.add(jimSobre);
 
+        jMenuItem1.setText("teste envio email");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jmAjuda.add(jMenuItem1);
+
         jMenuBar1.add(jmAjuda);
 
         setJMenuBar(jMenuBar1);
@@ -325,6 +337,14 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jimRelatorio2ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+            Email.enviar();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -365,6 +385,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jimAuditoria;
     private javax.swing.JMenuItem jimCidade;
