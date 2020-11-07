@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package telas;
+package apoio;
 
 import entidades.Viagem;
 import java.util.ArrayList;

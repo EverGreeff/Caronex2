@@ -5,6 +5,7 @@
  */
 package telas;
 
+import apoio.GraficoDeBarra;
 import entidades.Viagem;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
