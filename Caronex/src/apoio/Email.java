@@ -7,7 +7,6 @@ package apoio;
 
 import java.io.IOException;
 import java.util.Properties;
-import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -28,7 +27,51 @@ import net.sf.jasperreports.engine.JasperReport;
  */
 public class Email {
 
-    public static void enviar() throws IOException {
+    public void enviar(String d, String t, String a) throws IOException {
+        Properties props = new Properties();
+
+        //Parâmetros de conexão com servidor Gmail
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props,
+                new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("trabalhocaronex@gmail.com",
+                        "Teste123");
+            }
+        });
+        session.setDebug(true);
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("dionatan.ritter@universo.univates.br"));//Remetente
+
+            Address[] toUser = InternetAddress
+                    .parse(d); //Destinatário(s)
+
+            message.setRecipients(Message.RecipientType.TO, toUser);
+            message.setSubject(t);//Titulo
+            message.setText(a);//Assunto 
+
+            //  Método para enviar a mensagem criada
+            Transport.send(message);
+            JOptionPane.showMessageDialog(null, "Email enviado com sucesso!");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void enviar(String text, JasperReport relatorio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     public void enviarAnexo(String destinatario, String titulo, String assunto, String anexo1) throws IOException {
 
         Properties props = new Properties();
 
@@ -55,17 +98,17 @@ public class Email {
             message.setFrom(new InternetAddress("trabalhocaronex@gmail.com"));//Remetente
 
             Address[] toUser = InternetAddress
-                    .parse("rhklein@universo.univates.br"); //Destinatário(s)
+                    .parse(destinatario); //Destinatário(s)
 
             message.setRecipients(Message.RecipientType.TO, toUser);
-            message.setSubject("Teste Envio de email's");//Titulo
-            message.setText("Testando o teste!");//Assunto 
+            message.setSubject(titulo);//Titulo
+            message.setText(assunto);//Assunto 
 
             Multipart emailContent = new MimeMultipart();
             MimeBodyPart textBodyPart = new MimeBodyPart();
             textBodyPart.setText("teste anexo");
             MimeBodyPart anexo = new MimeBodyPart();
-            anexo.attachFile("C:/Users/Everton/Documents/NetBeansProjects/Caronex2/Caronex/logs.txt");
+            anexo.attachFile(anexo1);
             emailContent.addBodyPart(textBodyPart);
             emailContent.addBodyPart(anexo);
 
@@ -80,7 +123,7 @@ public class Email {
         }
     }
 
-    public void enviar(String text, JasperReport relatorio) {
+    public void enviarAnexo(String text, JasperReport relatorio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
