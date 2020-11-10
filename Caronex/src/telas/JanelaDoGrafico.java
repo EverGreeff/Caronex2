@@ -25,18 +25,10 @@ public class JanelaDoGrafico extends javax.swing.JFrame {
         setTitle("Gráfico");
         
         
-        ArrayList<Viagem> viagens = new ArrayList<>();
-        //buscar as viagens
-        Viagem viagem = new Viagem();
-        viagem.setValor_viagem(33.33);
-        viagem.setKm_viagem(32.45);
-        viagens.add(viagem);
-        
-        
         GraficoDeBarra graficoDeBarra = new GraficoDeBarra();
         jPanelGrafico.setLayout(new BorderLayout());
         
-        jPanelGrafico.add(graficoDeBarra.criarGrafico(viagens));
+        jPanelGrafico.add(graficoDeBarra.criarGrafico(graficoDeBarra.getResumoViagens(1, 2020, 1)));
         
         pack();
         

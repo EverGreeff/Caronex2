@@ -18,5 +18,6 @@
     <mapping class="entidades.Viagem"/>
     <mapping class="entidades.Viagem_Endereco"/>
     <mapping class="entidades.Auditoria"/>
+    <mapping class="entidades.ResumoViagens"/>
   </session-factory>
 </hibernate-configuration>
