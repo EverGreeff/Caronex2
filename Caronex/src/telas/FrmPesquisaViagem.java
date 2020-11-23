@@ -9,7 +9,9 @@ import apoio.ConexaoBD;
 import apoio.Formatacao;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -18,18 +20,29 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Everton
+ * @author roger
  */
-public class FrmPesquisaViagem extends javax.swing.JFrame {
+public class FrmPesquisaViagem extends javax.swing.JInternalFrame {
 
+    private static FrmPesquisaViagem tela;
 
-    public FrmPesquisaViagem(){
-        this.setTitle("Pesquisa de Viagem");
+    static JInternalFrame getInstancia() {
+        if (tela == null) {
+            tela = new FrmPesquisaViagem();
+        }
+        return tela;
+    }   
+
+    /**
+     * Creates new form NewJInternalFrame
+     */
+    public FrmPesquisaViagem() {
         initComponents();
-        
+//        this.setTitle("Pesquisa de Viagem");
         Formatacao.formatarData(txtDataInicial);
         Formatacao.formatarData(txtDataFinal);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,20 +54,12 @@ public class FrmPesquisaViagem extends javax.swing.JFrame {
 
         btnOK = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        try {
-            jLabel4 =(javax.swing.JLabel)java.beans.Beans.instantiate(getClass().getClassLoader(), "telas.FrmLogin_jLabel4");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
         jLabel2 = new javax.swing.JLabel();
         txtDataInicial = new javax.swing.JFormattedTextField();
         txtDataFinal = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
 
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Consulta Viagens");
 
         btnOK.setText("Gerar Relatório");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -79,62 +84,42 @@ public class FrmPesquisaViagem extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
-                            .addGap(49, 49, 49)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addComponent(txtDataFinal))
-                                .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btnOK)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnSair)
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(92, 92, 92))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(347, 347, 347))))))
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDataFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addComponent(txtDataInicial)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnOK)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSair)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnOK)
-                            .addComponent(btnSair))
-                        .addGap(35, 35, 35))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addContainerGap(140, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOK)
+                    .addComponent(btnSair))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(420, 271));
-        setLocationRelativeTo(null);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         try {
@@ -152,39 +137,22 @@ public class FrmPesquisaViagem extends javax.swing.JFrame {
 
             // Exibe resultado em video
             JasperViewer.viewReport(impressao, false);
-            
-            //dispose();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório: " + e);
-        }        
 
+            //dispose();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatório: " + e);
+        }
     }//GEN-LAST:event_btnOKActionPerformed
 
-    
-    /**
-     * @param args the command line arguments
-     */
-    public void main(String args[]) {
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
-        /**
-         * 0 - Modo de login
-         * 1 - Modo criação de login
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-                    new FrmPesquisaViagem().setVisible(true);
-                
-            }
-        });
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JFormattedTextField txtDataFinal;
     private javax.swing.JFormattedTextField txtDataInicial;

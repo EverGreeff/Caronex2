@@ -35,7 +35,7 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
      */
     public IfrAuditoria() {
         initComponents();
-        Formatacao.formatarData(ftfData);
+        Formatacao.formatarData(ftfData1);
     }
 
     public static IfrAuditoria getInstancia(String tipoUser) {
@@ -73,7 +73,9 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tAuditoria = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        ftfData = new javax.swing.JFormattedTextField();
+        ftfData1 = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        ftfData2 = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setFrameIcon(null);
@@ -102,7 +104,10 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tAuditoria);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("Data");
+        jLabel1.setText("Entre");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("e:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,10 +122,16 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnGeraArquivoAuditoria)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(22, 22, 22)
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ftfData2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ftfData1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
@@ -135,7 +146,11 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(ftfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(ftfData1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(ftfData2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -144,12 +159,16 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGeraArquivoAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeraArquivoAuditoriaActionPerformed
-        
-        String data = "";
-        if (!ftfData.getText().contains("_")) {
-            data = Formatacao.ajustaDataAMD(ftfData.getText());
+
+        String data1 = "";
+        String data2 = "";
+        if (!ftfData1.getText().contains("_")) {
+            data1 = Formatacao.ajustaDataAMD(ftfData1.getText());
         }
-        Pesquisas.PesquisaAuditoriaDois(tAuditoria, data);
+        if (!ftfData2.getText().contains("_")) {
+            data2 = Formatacao.ajustaDataAMD(ftfData2.getText());
+        }
+        Pesquisas.PesquisaAuditoriaDois(tAuditoria, data1, data2);
         Log.geraCSV(tAuditoria);
 
     }//GEN-LAST:event_btnGeraArquivoAuditoriaActionPerformed
@@ -157,8 +176,10 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnGeraArquivoAuditoria;
-    private javax.swing.JFormattedTextField ftfData;
+    private javax.swing.JFormattedTextField ftfData1;
+    private javax.swing.JFormattedTextField ftfData2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tAuditoria;

@@ -30,6 +30,12 @@ public class Main extends javax.swing.JFrame {
         this.setTitle("Caronex");
         this.gerenciarJanelas = new GerenciarJanelas(dktInicial);
         this.setExtendedState(MAXIMIZED_BOTH);
+        GraficoDeBarra graficoDeBarra = new GraficoDeBarra();
+        jPanelGrafico.setLayout(new BorderLayout());
+
+        jPanelGrafico.add(graficoDeBarra.criarGrafico(graficoDeBarra.getResumoViagens(1, 2020, 1)));
+
+        pack();
         try {
             UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel.class");
         } catch (Exception e) {
@@ -50,11 +56,11 @@ public class Main extends javax.swing.JFrame {
             jimUsuarios.setEnabled(false);
             jimVeiculo.setEnabled(false);
             jimViagem.setEnabled(false);
+            
         } else if (tu.equals("Passageiro")) {
             jimCidade.setEnabled(false);
             jimEndereco.setEnabled(false);
             jimGrupos.setEnabled(false);
-
             jimPessoas.setEnabled(false);
             jimRelatorio1.setEnabled(false);
             jimUsuarios.setEnabled(false);
@@ -77,7 +83,6 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanelGrafico = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmCadastros = new javax.swing.JMenu();
         jimPessoas = new javax.swing.JMenuItem();
@@ -123,17 +128,9 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 194, Short.MAX_VALUE)
         );
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         dktInicial.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dktInicial.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         dktInicial.setLayer(jPanelGrafico, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        dktInicial.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout dktInicialLayout = new javax.swing.GroupLayout(dktInicial);
         dktInicial.setLayout(dktInicialLayout);
@@ -142,13 +139,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(dktInicialLayout.createSequentialGroup()
                 .addGroup(dktInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dktInicialLayout.createSequentialGroup()
-                        .addGroup(dktInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(dktInicialLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(dktInicialLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(jButton1)))
+                        .addContainerGap()
+                        .addComponent(jPanelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(dktInicialLayout.createSequentialGroup()
@@ -166,8 +158,6 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(dktInicialLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
-                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -378,8 +368,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jimAuditoriaActionPerformed
 
     private void jimRelatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimRelatorio1ActionPerformed
-        
-        GerenciarJanelas.abreJanela(FrmPesquisaViagem1.getInstancia());
+
+        GerenciarJanelas.abreJanela(FrmPesquisaViagem.getInstancia());
 //        FrmPesquisaViagem pesquisa = new FrmPesquisaViagem();
 //        
 //        pesquisa.setVisible(true);
@@ -401,15 +391,6 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         GerenciarJanelas.abreJanela(JanelaDoGrafico2.getInstancia());
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GraficoDeBarra graficoDeBarra = new GraficoDeBarra();
-        jPanelGrafico.setLayout(new BorderLayout());
-        
-        jPanelGrafico.add(graficoDeBarra.criarGrafico(graficoDeBarra.getResumoViagens(1, 2020, 1)));
-        
-        pack();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -448,7 +429,6 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dktInicial;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;

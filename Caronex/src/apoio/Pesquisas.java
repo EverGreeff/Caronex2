@@ -452,11 +452,12 @@ public class Pesquisas {
         }
     }
     
-    public static void PesquisaAuditoriaDois(JTable tabela, String data) {
+    public static void PesquisaAuditoriaDois(JTable tabela, String data1, String data2) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Auditoria> resultado = new ArrayList();
         String sql = "FROM Auditoria "
-                + "WHERE data_criacao >= '" + data + "'";
+                + "WHERE data_criacao >= '" + data1 + "' "
+                + "AND data_criacao <= '" + data2 + "'";
         //padroniza a JTable
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
