@@ -37,7 +37,7 @@ public class Main extends javax.swing.JFrame {
 
         pack();
         try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel.class");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel.class");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -47,6 +47,7 @@ public class Main extends javax.swing.JFrame {
     public void user(String tu) {
         tipoUser = tu;
         jLabel2.setText("Tipo User: " + tu);
+        
         if (tu == "Administrador") {
             //acesso a tudo
         } else if (tu.equals("Organizador")) {
@@ -369,8 +370,8 @@ public class Main extends javax.swing.JFrame {
 
     private void jimRelatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimRelatorio1ActionPerformed
 
-        GerenciarJanelas.abreJanela(FrmPesquisaViagem.getInstancia());
-//        FrmPesquisaViagem pesquisa = new FrmPesquisaViagem();
+        GerenciarJanelas.abreJanela(IfrPesquisaViagem.getInstancia());
+//        IfrPesquisaViagem pesquisa = new IfrPesquisaViagem();
 //        
 //        pesquisa.setVisible(true);
     }//GEN-LAST:event_jimRelatorio1ActionPerformed

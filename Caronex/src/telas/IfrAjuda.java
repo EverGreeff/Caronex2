@@ -45,6 +45,7 @@ public class IfrAjuda extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
+        setTitle("Ajuda");
         setFrameIcon(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N

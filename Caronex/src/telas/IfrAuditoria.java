@@ -78,6 +78,7 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
         ftfData2 = new javax.swing.JFormattedTextField();
 
         setClosable(true);
+        setTitle("Auditoria");
         setFrameIcon(null);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N

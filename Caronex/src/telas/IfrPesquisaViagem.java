@@ -22,13 +22,13 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author roger
  */
-public class FrmPesquisaViagem extends javax.swing.JInternalFrame {
+public class IfrPesquisaViagem extends javax.swing.JInternalFrame {
 
-    private static FrmPesquisaViagem tela;
+    private static IfrPesquisaViagem tela;
 
     static JInternalFrame getInstancia() {
         if (tela == null) {
-            tela = new FrmPesquisaViagem();
+            tela = new IfrPesquisaViagem();
         }
         return tela;
     }   
@@ -36,7 +36,7 @@ public class FrmPesquisaViagem extends javax.swing.JInternalFrame {
     /**
      * Creates new form NewJInternalFrame
      */
-    public FrmPesquisaViagem() {
+    public IfrPesquisaViagem() {
         initComponents();
 //        this.setTitle("Pesquisa de Viagem");
         Formatacao.formatarData(txtDataInicial);
