@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.UIManager;
-import telas.TelaLogin;
+import telas.FrmLogin;
 
 /**
  *
@@ -29,7 +29,7 @@ public class Projeto {
 
         }
         //tela login
-        TelaLogin tela = new TelaLogin();
+        FrmLogin tela = new FrmLogin();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
         

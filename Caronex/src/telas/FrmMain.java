@@ -7,16 +7,13 @@ package telas;
 
 import apoio.*;
 import java.awt.BorderLayout;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
  *
  * @author roger
  */
-public class Main extends javax.swing.JFrame {
+public class FrmMain extends javax.swing.JFrame {
 
     GerenciarJanelas gerenciarJanelas;
     String tipoUser;
@@ -24,7 +21,7 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    public FrmMain() {
         initComponents();
         this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon.jpg")).getImage());
         this.setTitle("Caronex");
@@ -47,7 +44,7 @@ public class Main extends javax.swing.JFrame {
     public void user(String tu) {
         tipoUser = tu;
         jLabel2.setText("Tipo User: " + tu);
-        
+
         if (tu == "Administrador") {
             //acesso a tudo
         } else if (tu.equals("Organizador")) {
@@ -57,7 +54,7 @@ public class Main extends javax.swing.JFrame {
             jimUsuarios.setEnabled(false);
             jimVeiculo.setEnabled(false);
             jimViagem.setEnabled(false);
-            
+
         } else if (tu.equals("Passageiro")) {
             jimCidade.setEnabled(false);
             jimEndereco.setEnabled(false);
@@ -99,12 +96,11 @@ public class Main extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jmRelatorios = new javax.swing.JMenu();
         jimRelatorio1 = new javax.swing.JMenuItem();
-        jimRelatorio2 = new javax.swing.JMenuItem();
+        jimGrafico = new javax.swing.JMenuItem();
         jmAjuda = new javax.swing.JMenu();
         jimAuditoria = new javax.swing.JMenuItem();
         jimSobre = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jimEmail = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -256,13 +252,13 @@ public class Main extends javax.swing.JFrame {
         });
         jmRelatorios.add(jimRelatorio1);
 
-        jimRelatorio2.setText("Relatorio 2");
-        jimRelatorio2.addActionListener(new java.awt.event.ActionListener() {
+        jimGrafico.setText("Grafico de Viagens");
+        jimGrafico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jimRelatorio2ActionPerformed(evt);
+                jimGraficoActionPerformed(evt);
             }
         });
-        jmRelatorios.add(jimRelatorio2);
+        jmRelatorios.add(jimGrafico);
 
         jMenuBar1.add(jmRelatorios);
 
@@ -284,21 +280,13 @@ public class Main extends javax.swing.JFrame {
         });
         jmAjuda.add(jimSobre);
 
-        jMenuItem1.setText("teste envio email");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jimEmail.setText("Solicitar Ajuda por Email");
+        jimEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jimEmailActionPerformed(evt);
             }
         });
-        jmAjuda.add(jMenuItem1);
-
-        jMenuItem3.setText("teste grafico");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jmAjuda.add(jMenuItem3);
+        jmAjuda.add(jimEmail);
 
         jMenuBar1.add(jmAjuda);
 
@@ -369,29 +357,16 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jimAuditoriaActionPerformed
 
     private void jimRelatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimRelatorio1ActionPerformed
-
         GerenciarJanelas.abreJanela(IfrPesquisaViagem.getInstancia());
-//        IfrPesquisaViagem pesquisa = new IfrPesquisaViagem();
-//        
-//        pesquisa.setVisible(true);
     }//GEN-LAST:event_jimRelatorio1ActionPerformed
 
-    private void jimRelatorio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimRelatorio2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jimRelatorio2ActionPerformed
+    private void jimEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimEmailActionPerformed
+        GerenciarJanelas.abreJanela(IfrEnvioEmail.getInstancia());
+    }//GEN-LAST:event_jimEmailActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        GerenciarJanelas.abreJanela(Tela_Email.getInstancia());
-//        try {
-//            Email.enviar();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        GerenciarJanelas.abreJanela(JanelaDoGrafico2.getInstancia());
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void jimGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimGraficoActionPerformed
+        GerenciarJanelas.abreJanela(IfrGrafico.getInstancia());
+    }//GEN-LAST:event_jimGraficoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,20 +385,21 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new FrmMain().setVisible(true);
             }
         });
     }
@@ -433,20 +409,19 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanelGrafico;
     private javax.swing.JMenuItem jimAuditoria;
     private javax.swing.JMenuItem jimCidade;
+    private javax.swing.JMenuItem jimEmail;
     private javax.swing.JMenuItem jimEndereco;
     private javax.swing.JMenuItem jimFechar;
+    private javax.swing.JMenuItem jimGrafico;
     private javax.swing.JMenuItem jimGrupos;
     private javax.swing.JMenuItem jimInfoGrupo;
     private javax.swing.JMenuItem jimPessoas;
     private javax.swing.JMenuItem jimRelatorio1;
-    private javax.swing.JMenuItem jimRelatorio2;
     private javax.swing.JMenuItem jimSobre;
     private javax.swing.JMenuItem jimUsuarios;
     private javax.swing.JMenuItem jimVeiculo;

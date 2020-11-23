@@ -17,16 +17,16 @@ import javax.swing.JOptionPane;
  *
  * @author yNot
  */
-public class Tela_Email extends javax.swing.JInternalFrame {
+public class IfrEnvioEmail extends javax.swing.JInternalFrame {
 
-    private static Tela_Email tela;
+    private static IfrEnvioEmail tela;
     /**
      * 3
-     * Creates new form Tela_Email
+ Creates new form IfrEnvioEmail
      */
     String caminho = "";
 
-    public Tela_Email() {
+    public IfrEnvioEmail() {
         initComponents();
     }
 
@@ -51,8 +51,6 @@ public class Tela_Email extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         anexo = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         enviar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         enviar.setText("Enviar");
@@ -180,7 +178,7 @@ public class Tela_Email extends javax.swing.JInternalFrame {
 
     static JInternalFrame getInstancia() {
         if (tela == null) {
-            tela = new Tela_Email();
+            tela = new IfrEnvioEmail();
         }
         return tela;
     }  
@@ -250,20 +248,21 @@ public class Tela_Email extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela_Email.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrEnvioEmail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela_Email.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrEnvioEmail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela_Email.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrEnvioEmail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela_Email.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IfrEnvioEmail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tela_Email().setVisible(true);
+                new IfrEnvioEmail().setVisible(true);
             }
         });
     }

@@ -8,23 +8,10 @@ package telas;
 import apoio.Formatacao;
 import apoio.GerenciarJanelas;
 import apoio.TableSorter;
-import apoio.Validacao;
-///import dao.BairroDAO;
-///import dao.CadLocaisDAO;
-///import dao.CadPessoaDAO;
-///import dao.CidadeDAO;
-///import dao.EnderecoDAO;
-///import dao.GrupoPessoaDAO;
-///import dao.ViagemDAO;
-import entidades.Endereco;
-import entidades.Grupo_Pessoa;
 import entidades.Viagem;
 import java.awt.Color;
-import java.sql.Date;
-import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -42,13 +29,6 @@ public class IfrViagem extends javax.swing.JInternalFrame {
     private int idGrupo;
     int id_viagem;
 
-    static JInternalFrame getInstancia() {
-        if (tela == null) {
-            tela = new IfrViagem();
-        }
-        return tela;
-    }
-
     /**
      * Creates new form IfrViagem
      */
@@ -63,6 +43,13 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         Formatacao.formatarHora(ftfHoraRetorno);
         Formatacao.formatarReal(ftfValorViagem);
 
+    }
+
+    static JInternalFrame getInstancia() {
+        if (tela == null) {
+            tela = new IfrViagem();
+        }
+        return tela;
     }
 
     private boolean camposObrigatorios(JTextField txfNomeGrupo, JTextField txfLocalEncontro, JTextField txfLocalDestino, JTextField txfValorViagem) {
@@ -94,100 +81,6 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         return true;
     }
 
-    /*private boolean camposFormatados(JFormattedTextField ftfDataSaida, JFormattedTextField ftfHoraSaida, JFormattedTextField ftfDataRetorno) {
-    if (Formatacao.removerFormatacao(ftfDataSaida.getText()).equals("") || Formatacao.removerFormatacao(ftfDataSaida.getText()).equals(" ") || Formatacao.removerFormatacao(ftfDataSaida.getText()) == null) {
-    JOptionPane.showMessageDialog(null, "Digite uma Data para a Viagem!");
-    ftfDataSaida.setBackground(Color.yellow);
-    ftfDataSaida.requestFocus();
-    return false;
-    } else if (!Validacao.validarDataFormatada(ftfDataSaida.getText())) {
-    JOptionPane.showMessageDialog(null, "Digite a Data Corretamente");
-    ftfDataSaida.setBackground(Color.yellow);
-    ftfDataSaida.requestFocus();
-    return false;
-    }
-    
-    if (ftfHoraSaida.getText().equals("") || ftfHoraSaida.getText().equals(" ") || ftfHoraSaida.getText() == null) {
-    JOptionPane.showMessageDialog(null, "Digite uma Hora de Partida!");
-    ftfHoraSaida.setBackground(Color.yellow);
-    ftfHoraSaida.requestFocus();
-    return false;
-    } else if (!Validacao.validaHora(ftfHoraSaida.getText())) {
-    JOptionPane.showMessageDialog(null, "Digite a Hora Corretamente");
-    ftfHoraSaida.setBackground(Color.yellow);
-    ftfHoraSaida.requestFocus();
-    return false;
-    }
-    
-    if (!Validacao.validarDataFormatada(ftfDataRetorno.getText())) {
-    JOptionPane.showMessageDialog(null, "Digite a Data Corretamente");
-    ftfDataRetorno.setBackground(Color.yellow);
-    ftfDataRetorno.requestFocus();
-    return false;
-    }
-    return true;
-    }*/
-
- /*public void definirLocal(CadLocais idlocal, String local, String cidade, String endereco, String ed) {
-    
-    idGrupo = idlocal.getIdLocal();
-    /////CadLocais i = new CadLocaisDAO().consultarId(idGrupo);
-    if (i == null) {
-    JOptionPane.showMessageDialog(null, "Registro não localizado!");
-    } else {
-    if (ed.equals("e")) {
-    viagem.setIdLocalEncontro(idGrupo);
-    txfLocalEncontro.setText(local);
-    txfCidadeEncontro.setText(cidade);
-    txfEnderecoEncontro.setText(endereco);
-    } else {
-    viagem.setIdLocalDestino(idGrupo);
-    txfLocalDestino.setText(local);
-    txfCidadeDestino.setText(cidade);
-    txfEnderecoDestino.setText(endereco);
-    }
-    
-    }
-    }*/
-    ///public void definirGrupo(GrupoPessoa gruposs) {
-    ///idGrupo = gruposs.getIdGrupo();
-    /////GrupoPessoa i = new GrupoPessoaDAO().consultarId(idGrupo);
-    ///viagem.setIdGrupo(idGrupo);
-    ///if (i == null) {
-    ///    JOptionPane.showMessageDialog(null, "Registro não localizado!");
-    ///} else {
-    //Define nome do Grupo
-    ///txfNomeGrupo.setText(i.getNomeGrupo());
-    //Popula integrantes do Grupo
-    /////new CadPessoaDAO().popularTabela(tblIntegrantes, "", idGrupo);
-    //Popula Campos Locais
-    ////CadLocais localE = new CadLocaisDAO().consultarId(i.getIdLocalEncontro());
-    ////Endereco endE = new EnderecoDAO().consultarId(localE.getIdEnd());
-    ////Bairro bairroE = new BairroDAO().consultarId(endE.getIdBairro());
-    ////Cidade cidadeE = new CidadeDAO().consultarId(bairroE.getId_cid());
-    ///txfCidadeEncontro.setText(cidadeE.getCidade());
-    ///txfEnderecoEncontro.setText(endE.getLogradouro());
-    ///txfLocalEncontro.setText(localE.getLocal());
-    ///viagem.setIdLocalEncontro(i.getIdLocalEncontro());
-    //Popula Campos Locais
-    ////CadLocais localD = new CadLocaisDAO().consultarId(i.getIdLocalDestino());
-    ////Endereco endD = new EnderecoDAO().consultarId(localD.getIdEnd());
-    ////Bairro bairroD = new BairroDAO().consultarId(endD.getIdBairro());
-    //// Cidade cidadeD = new CidadeDAO().consultarId(bairroD.getId_cid());
-    ///txfCidadeDestino.setText(cidadeD.getCidade());
-    ///txfEnderecoDestino.setText(endD.getLogradouro());
-    ///txfLocalDestino.setText(localD.getLocal());
-    ///viagem.setIdLocalDestino(i.getIdLocalDestino());
-    //numero de pessoas no grupo
-    ///txfNumPessoas.setText(String.valueOf(tblIntegrantes.getRowCount()));
-    ///   System.out.println("Locais Carregados com sucesso");
-    ///}
-    ///}
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -555,61 +448,15 @@ public class IfrViagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAdcLocalActionPerformed
 
     private void btnGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrupoActionPerformed
-        ////JdlGrupo busca = new JdlGrupo(null, true, this, "d");
-        ////busca.setLocationRelativeTo(this);
-        ////busca.setVisible(true);
-        ////txfNomeGrupo.setBackground(null);
+        // ainda precisa fazer
     }//GEN-LAST:event_btnGrupoActionPerformed
 
     private void btnBuscaIntegranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaIntegranteActionPerformed
-        /////new CadPessoaDAO().popularTabela(tblIntegrantes, txfIntegrante.getText(), idGrupo);
+        // ainda precisa fazer
     }//GEN-LAST:event_btnBuscaIntegranteActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
-        /*if (camposObrigatorios(txfNomeGrupo, txfLocalEncontro, txfLocalDestino, ftfValorViagem) && camposFormatados(ftfDataSaida, ftfHoraSaida, ftfDataRetorno)) {
-        Date dataNula = new Date(0);
-        String horaNula = "00:00:00";
-        //campo date vazio
-        
-        if (Formatacao.removerFormatacao(ftfDataRetorno.getText()).trim().isEmpty()) {
-        ///viagem.setDataRetornoViagem(dataNula);
-        } else {
-        ///viagem.setDataRetornoViagem(Date.valueOf(Formatacao.ajustaDataAMD(ftfDataRetorno.getText())));
-        }
-        
-        if (Formatacao.removerFormatacao(ftfHoraRetorno.getText()).trim().isEmpty()) {
-        ////viagem.setHoraRetornoViagem(horaNula);
-        } else {
-        ////viagem.setHoraRetornoViagem(ftfHoraRetorno.getText());
-        
-        }
-        ///viagem.setDataCriacaoViagem(Formatacao.getDataHoraAtualDate());
-        ///viagem.setDataSaidaViagem(Date.valueOf(Formatacao.ajustaDataAMD(ftfDataSaida.getText())));
-        ///viagem.setHoraSaidaViagem(ftfHoraSaida.getText());
-        ///viagem.setNumPessoas(Integer.valueOf(txfNumPessoas.getText()));
-        ///viagem.setValorViagem(Double.parseDouble(ftfValorViagem.getText().replace(",", ".")));
-        ///viagem.setStatusViagem(cbxStatusViagem.getSelectedIndex());
-        
-        
-        
-        ////ViagemDAO viagemDAO = new ViagemDAO();
-        //String retorno = viagemDAO.salvar(viagem);
-        
-        //if (retorno == null) {
-        //    int idViagem = viagemDAO.consultarUltimoId();
-        
-        //teste fim
-        //    JOptionPane.showMessageDialog(null, "Viagem de número " + idViagem + " registrada com sucesso!");
-        
-        //limpa tela
-        //    limpaTela();
-        
-        //} else {
-        //    JOptionPane.showMessageDialog(null, "Ops! Problemas ao salvar registro.");
-        //}
-        
-        }*/
+        // ainda precisa fazer
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void ftfDataSaidaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftfDataSaidaKeyPressed
@@ -637,7 +484,7 @@ public class IfrViagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ftfHoraRetornoKeyPressed
 
     private void btnAdcLocal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdcLocal1ActionPerformed
-        // TODO add your handling code here:
+        // ainda precisa fazer
     }//GEN-LAST:event_btnAdcLocal1ActionPerformed
 
 
@@ -695,7 +542,6 @@ public class IfrViagem extends javax.swing.JInternalFrame {
         txfNumPessoas.setBackground(null);
         txfIntegrante.setBackground(Color.white);
 
-        /////new CadPessoaDAO().popularTabela(tblIntegrantes, null);
     }
 
 }

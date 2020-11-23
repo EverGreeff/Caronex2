@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  *
  * @author roger
  */
-public class TelaLogin extends javax.swing.JFrame {
+public class FrmLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaLogin
      */
-    public TelaLogin() {
+    public FrmLogin() {
         initComponents();
         //this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon.jpg")).getImage());
         this.setLocationRelativeTo(null);
@@ -96,7 +96,6 @@ public class TelaLogin extends javax.swing.JFrame {
         jButton3.setBounds(334, 10, 130, 32);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CaronexLogo.png"))); // NOI18N
-        jLabel3.setPreferredSize(new java.awt.Dimension(479, 344));
         jPanel1.add(jLabel3);
         jLabel3.setBounds(0, -10, 480, 350);
 
@@ -128,7 +127,7 @@ public class TelaLogin extends javax.swing.JFrame {
             try {
                 String tu = Validacoes.logar(tfLogin.getText(), Criptografia.criptoMD5(String.valueOf(pfSenha.getPassword())));
                 if (!tu.equals("")) {
-                    Main tp = new Main();
+                    FrmMain tp = new FrmMain();
                     tp.setVisible(true);
                     tp.user(tu);
                     this.dispose();
@@ -146,7 +145,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoLogin
 
     private void BotaoRapido(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRapido
-        Main mn = new Main();
+        FrmMain mn = new FrmMain();
         mn.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BotaoRapido
@@ -172,20 +171,21 @@ public class TelaLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaLogin().setVisible(true);
+                new FrmLogin().setVisible(true);
             }
         });
     }

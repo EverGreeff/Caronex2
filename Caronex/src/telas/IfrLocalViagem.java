@@ -5,13 +5,10 @@
  */
 package telas;
 
-import apoio.Pesquisas;
 import entidades.Endereco;
-import entidades.Grupo_Pessoa;
 import entidades.Viagem;
 import entidades.Viagem_Endereco;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

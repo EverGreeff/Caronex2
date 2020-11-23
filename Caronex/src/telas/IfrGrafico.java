@@ -13,14 +13,14 @@ import javax.swing.JInternalFrame;
  *
  * @author Everton
  */
-public class JanelaDoGrafico2 extends javax.swing.JInternalFrame {
+public class IfrGrafico extends javax.swing.JInternalFrame {
 
-    private static JanelaDoGrafico2 tela;
+    private static IfrGrafico tela;
     
     /**
      * Creates new form JanelaDoGrafico2
      */
-    public JanelaDoGrafico2() {
+    public IfrGrafico() {
         initComponents();
         
         GraficoDeBarra graficoDeBarra = new GraficoDeBarra();
@@ -33,7 +33,7 @@ public class JanelaDoGrafico2 extends javax.swing.JInternalFrame {
     
     static JInternalFrame getInstancia() {
         if (tela == null) {
-            tela = new JanelaDoGrafico2();
+            tela = new IfrGrafico();
         }
         return tela;
     } 

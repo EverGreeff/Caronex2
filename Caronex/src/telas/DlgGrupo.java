@@ -5,7 +5,6 @@
  */
 package telas;
 
-import apoio.GerenciarJanelas;
 import apoio.Pesquisas;
 import entidades.Grupo;
 
