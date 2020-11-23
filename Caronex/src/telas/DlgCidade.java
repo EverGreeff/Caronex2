@@ -26,7 +26,6 @@ public class DlgCidade extends javax.swing.JDialog {
     public DlgCidade(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
     }
 
     public DlgCidade(java.awt.Frame parent, boolean modal, String textoDigitado, IfrCadEndereco busca) {
@@ -149,9 +148,7 @@ public class DlgCidade extends javax.swing.JDialog {
         cidade.setId_cid(Integer.parseInt(String.valueOf(tblCidade.getValueAt(tblCidade.getSelectedRow(), 0))));
         cidade.setCidade(String.valueOf(tblCidade.getValueAt(tblCidade.getSelectedRow(), 1)));
         cidade.setUf(String.valueOf(tblCidade.getValueAt(tblCidade.getSelectedRow(), 2)));
-
         buscaCidade.trazerCidade(cidade);
-
         dispose();
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
@@ -180,69 +177,6 @@ public class DlgCidade extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DlgCidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
