@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import apoio.HibernateUtil;
 import apoio.Log;
+import javax.swing.JOptionPane;
 import org.hibernate.Query;
 
 /**
@@ -54,6 +55,7 @@ public class DaoGenerico {
             transaction.commit();
             retorno = true;
             Audita.salvarAuditoria("Inserir", o.getClass().toString(), 1);
+            JOptionPane.showMessageDialog(null, o.getClass().toString() +" inserido com sucesso!");
         } catch (Exception e) {
             transaction.rollback();
             retorno = false;
@@ -67,26 +69,28 @@ public class DaoGenerico {
 
     public int inserirSerial(Object o) {
 
-        int id = -1;
+        int id = 0;
         Session sessao = factory.openSession();
         try {
             transaction = sessao.beginTransaction();
             Query query = sessao.createSQLQuery("SET SESSION \"myapp.user\" = '" + userName + "'");
             query.executeUpdate();
             id = (Integer) sessao.save(o);
+            System.out.println(id + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             transaction.commit();
-
+            System.out.println(id + "bbbbbbbbbbb");
             Audita.salvarAuditoria("Inserir", o.getClass().toString(), 1);
+            JOptionPane.showMessageDialog(null, o.getClass().toString() +" inserido com sucesso!");
         } catch (Exception e) {
             transaction.rollback();
-
+            System.out.println(id + "ccccccccccc");
             e.printStackTrace();
             Log.geraLogBD(userName, "Inserir", o.getClass(), e.toString());
         } finally {
             sessao.close();
+            return id;
         }
 
-        return id;
     }
 
     public boolean atualizar(Object o) {
@@ -100,6 +104,7 @@ public class DaoGenerico {
             transaction.commit();
             retorno = true;
             Audita.salvarAuditoria("Atualizar", o.getClass().toString(), 1);
+            JOptionPane.showMessageDialog(null, o.getClass().toString() +" alterado com sucesso!");
         } catch (Exception e) {
             transaction.rollback();
             retorno = false;
@@ -127,6 +132,7 @@ public class DaoGenerico {
 
             retorno = true;
             Audita.salvarAuditoria("Excluir", classe.toString(), 1);
+            JOptionPane.showMessageDialog(null, classe.toString() +" excluido com sucesso!");
         } catch (Exception e) {
             transaction.rollback();
             retorno = false;

@@ -113,7 +113,7 @@ public class Endereco implements Serializable {
         hash = 37 * hash + this.id_end;
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -132,4 +132,9 @@ public class Endereco implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Endereco{" + "id_end=" + id_end + ", numero=" + numero + ", logradouro=" + logradouro + ", complemento=" + complemento + ", bairro=" + bairro + ", status=" + status + ", cidade_id_cid=" + cidade_id_cid + ", cep=" + cep + '}';
+    }
+    
 }

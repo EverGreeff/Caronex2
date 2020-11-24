@@ -393,17 +393,18 @@ public class IfrCadEndereco extends javax.swing.JInternalFrame {
             endereco.setComplemento(txtComplemento.getText());
             endereco.setNumero(Integer.parseInt(txtNumero.getText()));
             endereco.setCidade_id_cid(id_cidade);
-            endereco.setCep(Integer.parseInt(txtCEP.getText()));
+            endereco.setCep(Integer.parseInt(Formatacao.removerFormatacao(txtCEP.getText())));
             endereco.setStatus("A");
-
+            System.out.println("" + endereco.toString());
             if (id > -1) {
                 endereco.setId_end(id);
                 DaoGenerico.getInstance().atualizar(endereco);
                 //atualizar(endereco);
             } else {
-                DaoGenerico.getInstance().inserir(endereco);
+                DaoGenerico.getInstance().inserirSerial(endereco);
                 //salvar(endereco);
             }
+            
         } else {
             JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
         }
@@ -469,7 +470,7 @@ public class IfrCadEndereco extends javax.swing.JInternalFrame {
             cid.setUf(cep.getUf());
             cid.setStatus("A");
             id_cidade = DaoGenerico.getInstance().inserirSerial(cid);
-
+            //txtIdCid.setText(String.valueOf(id_cidade));
         } catch (ViaCEPException ex) {
             JOptionPane.showMessageDialog(null, "CEP errado ou inexistente no sistema");
         }

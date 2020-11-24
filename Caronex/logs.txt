@@ -182,3 +182,11 @@ Erro: org.hibernate.exception.ConstraintViolationException: could not execute st
 
 Horário: 23/11/2020 22:57:20
 
+Usuário: null
+Método: inserir
+Classe: class entidades.Endereco
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not execute statement
+
+Horário: 23/11/2020 23:19:06
+
