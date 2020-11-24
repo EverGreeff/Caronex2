@@ -66,8 +66,8 @@ public class DaoGenerico {
     }
 
     public int inserirSerial(Object o) {
-        boolean retorno = false;
-        int id = 0;
+
+        int id = -1;
         Session sessao = factory.openSession();
         try {
             transaction = sessao.beginTransaction();
@@ -75,11 +75,11 @@ public class DaoGenerico {
             query.executeUpdate();
             id = (Integer) sessao.save(o);
             transaction.commit();
-            retorno = true;
+
             Audita.salvarAuditoria("Inserir", o.getClass().toString(), 1);
         } catch (Exception e) {
             transaction.rollback();
-            retorno = false;
+
             e.printStackTrace();
             Log.geraLogBD(userName, "Inserir", o.getClass(), e.toString());
         } finally {

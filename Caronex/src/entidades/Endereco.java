@@ -7,6 +7,7 @@ package entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 /**
  *
  * @author roger
@@ -15,30 +16,26 @@ import javax.persistence.*;
 @Table(name = "endereco")
 
 public class Endereco implements Serializable {
-    
+
+    private int id_end;
+
+    private int numero;
+
+    private String logradouro;
+
+    private String complemento;
+
+    private String bairro;
+
+    private String status;
+
+    private int cidade_id_cid;
+
+    private int cep;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_end")
-    private int id_end;
-
-    @Column(name = "numero")
-    private int numero;
-
-    @Column(name = "logradouro")
-    private String logradouro;
-
-    @Column(name = "complemento")
-    private String complemento;
-
-    @Column(name = "bairro")
-    private String bairro;
-
-    @Column(name = "status")
-    private String status;
-
-    @Column(name = "cidade_id_cid")
-    private int cidade_id_cid;
-
     public int getId_end() {
         return id_end;
     }
@@ -47,6 +44,16 @@ public class Endereco implements Serializable {
         this.id_end = id_end;
     }
 
+    @Column(name = "cep")
+    public int getCep() {
+        return cep;
+    }
+
+    public void setCep(int cep) {
+        this.cep = cep;
+    }
+
+    @Column(name = "numero")
     public int getNumero() {
         return numero;
     }
@@ -55,6 +62,7 @@ public class Endereco implements Serializable {
         this.numero = numero;
     }
 
+    @Column(name = "logradouro")
     public String getLogradouro() {
         return logradouro;
     }
@@ -63,6 +71,7 @@ public class Endereco implements Serializable {
         this.logradouro = logradouro;
     }
 
+    @Column(name = "complemento")
     public String getComplemento() {
         return complemento;
     }
@@ -71,6 +80,7 @@ public class Endereco implements Serializable {
         this.complemento = complemento;
     }
 
+    @Column(name = "bairro")
     public String getBairro() {
         return bairro;
     }
@@ -79,6 +89,7 @@ public class Endereco implements Serializable {
         this.bairro = bairro;
     }
 
+    @Column(name = "status")
     public String getStatus() {
         return status;
     }
@@ -87,6 +98,7 @@ public class Endereco implements Serializable {
         this.status = status;
     }
 
+    @Column(name = "cidade_id_cid")
     public int getCidade_id_cid() {
         return cidade_id_cid;
     }
@@ -120,5 +132,4 @@ public class Endereco implements Serializable {
         return true;
     }
 
-    
 }

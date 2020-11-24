@@ -158,3 +158,27 @@ Erro: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
 
 Horário: 05/10/2020 23:28:28
 
+Usuário: admin
+Método: salvar
+Classe: dao
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not execute statement
+
+Horário: 23/11/2020 22:43:49
+
+Usuário: null
+Método: inserir
+Classe: class entidades.Endereco
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not execute statement
+
+Horário: 23/11/2020 22:56:18
+
+Usuário: null
+Método: inserir
+Classe: class entidades.Endereco
+
+Erro: org.hibernate.exception.ConstraintViolationException: could not execute statement
+
+Horário: 23/11/2020 22:57:20
+

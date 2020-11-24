@@ -50,7 +50,7 @@ public class IfrCadCidade extends javax.swing.JInternalFrame {
         tela = null;
     }
 
-    public void salvar(Cidade u) {
+    public int salvar(Cidade u) {
 
         Session sessao = null;
         sessao = apoio.HibernateUtil.getSessionFactory().openSession();
@@ -71,6 +71,7 @@ public class IfrCadCidade extends javax.swing.JInternalFrame {
         } finally {
             sessao.close();
         }
+        return u.getId_cid();
     }
 
     public void atualizar(Cidade u) {
@@ -117,6 +118,24 @@ public class IfrCadCidade extends javax.swing.JInternalFrame {
                 sessao.close();
             }
         }
+    }
+
+    public int SalvarCidade(String cidade, String UF) {
+        if (validaInsert()) {
+
+            Cidade cid = new Cidade();
+
+            cid.setCidade(cidade);
+            cid.setUf(UF);
+            cid.setStatus("A");
+
+            id = salvar(cid);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor, verifique os dados aaaaaaa");
+        }
+
+        return id;
     }
 
     /**
