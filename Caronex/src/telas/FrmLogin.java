@@ -41,7 +41,6 @@ public class FrmLogin extends javax.swing.JFrame {
         tfLogin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         pfSenha = new javax.swing.JPasswordField();
-        jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -85,15 +84,6 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel2.setBounds(250, 190, 70, 24);
         jPanel1.add(pfSenha);
         pfSenha.setBounds(320, 190, 130, 30);
-
-        jButton3.setText("AcessoRapido");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoRapido(evt);
-            }
-        });
-        jPanel1.add(jButton3);
-        jButton3.setBounds(334, 10, 130, 32);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/CaronexLogo.png"))); // NOI18N
         jPanel1.add(jLabel3);
@@ -144,12 +134,6 @@ public class FrmLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotaoLogin
 
-    private void BotaoRapido(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRapido
-        FrmMain mn = new FrmMain();
-        mn.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_BotaoRapido
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         
     }//GEN-LAST:event_formWindowClosed
@@ -193,7 +177,6 @@ public class FrmLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

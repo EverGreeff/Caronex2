@@ -7,6 +7,7 @@ package telas;
 
 import apoio.Formatacao;
 import apoio.GerenciarJanelas;
+import apoio.Pesquisas;
 import apoio.SoNumeros;
 import apoio.TableSorter;
 import entidades.Viagem;
@@ -33,18 +34,16 @@ public class IfrConsultaViagem extends javax.swing.JInternalFrame {
     TableSorter sorter;
     private int id;
 
-    static JInternalFrame getInstancia(GerenciarJanelas gerenciarJanelas) {
+    static JInternalFrame getInstancia() {
         if (tela == null) {
-            tela = new IfrConsultaViagem(gerenciarJanelas);
+            tela = new IfrConsultaViagem();
         }
         return tela;
     }
 
-    public IfrConsultaViagem(GerenciarJanelas gerenciarJanelas) {
+    public IfrConsultaViagem() {
         initComponents();
-        //inicia janela
-        this.gerenciarJanelas = gerenciarJanelas;
-
+        Pesquisas.PesquisaViagens(tblViagens, -1);
         //datas
         this.dateMin = Date.valueOf(Formatacao.ajustaDataAMD("01/01/0001"));
         this.dateMax = Date.valueOf(Formatacao.ajustaDataAMD("31/12/9999"));
@@ -58,7 +57,6 @@ public class IfrConsultaViagem extends javax.swing.JInternalFrame {
 
         //popula cabeçalho
         ///////////new ViagemDAO().popularTabela(tblViagens, 0, "", 0, null, null, null, null, Formatacao.ajustaDataAMD(Formatacao.getDataAtual()), Formatacao.ajustaDataAMD(Formatacao.getDataAtual()));
-
         //Formata
         Formatacao.formatarData(ftfDataEmissaoMax);
         Formatacao.formatarData(ftfDataEmissaoMin);
@@ -116,13 +114,13 @@ public class IfrConsultaViagem extends javax.swing.JInternalFrame {
 
         tblViagens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
             }
         ));
         tblViagens.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -370,14 +368,16 @@ public class IfrConsultaViagem extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void fechaTela() {
+        GerenciarJanelas.fecharJanela(tela);
+        tela = null;
+    }
     private void btnCriarViagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarViagemActionPerformed
         GerenciarJanelas.abreJanela(IfrViagem.getInstancia());
     }//GEN-LAST:event_btnCriarViagemActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.setVisible(false);
-        this.dispose();
+        fechaTela();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void tblViagensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViagensMouseClicked
@@ -622,7 +622,6 @@ public class IfrConsultaViagem extends javax.swing.JInternalFrame {
 
             //chama o Viagemdao
             ///////new ViagemDAO().popularTabela(tblViagens, numViagem, grupo, statusViagem, demax, demin, drmax, drmin, dsmax, dsmin);
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro no Filtro:" + e);
         }

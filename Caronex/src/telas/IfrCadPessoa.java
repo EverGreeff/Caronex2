@@ -25,26 +25,27 @@ import org.hibernate.Transaction;
 public class IfrCadPessoa extends javax.swing.JInternalFrame {
 
     private static IfrCadPessoa tela;
-    
+
     String errors;
     int id;
     public static int id_responsavel = 1;
-    
+
     /**
      * Creates new form IfrCadPessoa
      */
     public IfrCadPessoa() {
         initComponents();
         setTitle("Cadastrar Pessoa");
+        Pesquisas.PesquisaPessoa(tblPessoas, "");
         id = -1;
-        
+
         // aplica mascaras
         Formatacao.formatarCpf(ftxtCpf);
         Formatacao.formatarTelefone(ftxtTelefone);
         txtResponsavel.setEditable(false);
         btnBuscaPessoa.setVisible(false);
     }
-    
+
     public static IfrCadPessoa getInstancia() {
         if (tela == null) {
             tela = new IfrCadPessoa();
@@ -56,16 +57,16 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         GerenciarJanelas.fecharJanela(tela);
         tela = null;
     }
-    
+
     private boolean verificaIdade() {
         boolean ok = false;
-        if(Integer.valueOf(txtIdade.getText()) < 18) {
+        if (Integer.valueOf(txtIdade.getText()) < 18) {
             jLabel10.setText("Pessoa de menor, selecione um responsável!");
             jLabel10.setForeground(Color.red);
             txtResponsavel.setEditable(true);
             btnBuscaPessoa.setVisible(true);
         }
-        
+
         return ok;
     }
 
@@ -428,7 +429,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(validaInsert()) {
+        if (validaInsert()) {
             Session sessao = null;
             try {
                 sessao = HibernateUtil.getSessionFactory().openSession();
@@ -449,7 +450,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
                 } else {
                     sessao.save(pessoa);
                 }
-                
+
                 transacao.commit();
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
             } catch (HibernateException hibEx) {
@@ -461,14 +462,14 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
             errors = "";
         }
-        
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     public void trazerPessoa(Pessoa pessoa) {
         id_responsavel = pessoa.getId_pessoa();
         txtResponsavel.setText(pessoa.getNome());
     }
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -479,7 +480,7 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         Pesquisas.PesquisaPessoa(tblPessoas, txtCampoPesquisa.getText());
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -492,9 +493,9 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         Session sessao = null;
         sessao = HibernateUtil.getSessionFactory().openSession();
         try {
-            
+
             Transaction transacao = sessao.beginTransaction();
-          
+
             Pessoa pessoa = (Pessoa) sessao.get(Pessoa.class, id);
             txtNome.setText(String.valueOf(pessoa.getNome()));
             ftxtTelefone.setText(String.valueOf(pessoa.getTelefone()));
@@ -502,12 +503,12 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
             ftxtEmail.setText(pessoa.getEmail());
             txtIdade.setText(String.valueOf(pessoa.getIdade()));
             txtIdentidade.setText(pessoa.getIdentidade());
-            
+
             Pessoa pessoaResponsavel = (Pessoa) sessao.get(Pessoa.class, pessoa.getId_responsavel());
             txtResponsavel.setText(pessoaResponsavel.getNome());
-            
+
             id_responsavel = pessoa.getId_responsavel();
-            
+
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
         } finally {
@@ -518,30 +519,29 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         id = Integer.parseInt(String.valueOf(tblPessoas.getValueAt(tblPessoas.getSelectedRow(), 0)));
         Session sessao = null;
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction transacao = sessao.beginTransaction();
-                Pessoa pessoa = (Pessoa) sessao.get(Pessoa.class, id);
-                pessoa.setStatus("X");
-                
-                sessao.update(pessoa);
-                
-                
-                transacao.commit();
-                JOptionPane.showMessageDialog(null, "Edição efetuada com sucesso!");
-            } catch (HibernateException hibEx) {
-                hibEx.printStackTrace();
-            } finally {
-                sessao.close();
-            }
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            Pessoa pessoa = (Pessoa) sessao.get(Pessoa.class, id);
+            pessoa.setStatus("X");
+
+            sessao.update(pessoa);
+
+            transacao.commit();
+            JOptionPane.showMessageDialog(null, "Edição efetuada com sucesso!");
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
+            sessao.close();
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtIdadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdadeFocusLost
-        
-        if(!txtIdade.getText().equals("")) {
+
+        if (!txtIdade.getText().equals("")) {
             verificaIdade();
         }
-            
+
     }//GEN-LAST:event_txtIdadeFocusLost
 
     private void btnBuscaPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaPessoaActionPerformed
@@ -552,25 +552,24 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     public boolean validaInsert() {
         String replaced = "";
         errors = "";
-        
+
         //Nome
         if (txtNome.getText().length() == 0) {
             errors += "Preencha o nome - ";
         }
-        
+
         //E-mail
         if (ftxtEmail.getText().length() == 0) {
             errors += "Preencha o e-mail - ";
             //existe validador de e-mail??
         }
-        
+
         //Telefone
         if (Validacao.validarTelefone(ftxtTelefone)) {
         } else {
             errors += "Telefone Inválido - ";
         }
-       
-        
+
         //CPF
         replaced = "";
         replaced = ftxtCpf.getText().replace("_", "");
@@ -583,9 +582,9 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
         } else {
             errors += "CPF Inválido - ";
         }
-        
+
         return errors.equals("");
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -629,5 +628,3 @@ public class IfrCadPessoa extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtResponsavel;
     // End of variables declaration//GEN-END:variables
 }
-
-

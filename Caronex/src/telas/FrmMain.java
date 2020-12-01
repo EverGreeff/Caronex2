@@ -229,7 +229,7 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jmControles.add(jimInfoGrupo);
 
-        jimViagem.setText("Viagem");
+        jimViagem.setText("Registra Viagem");
         jimViagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jimViagemActionPerformed(evt);
@@ -237,7 +237,12 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jmControles.add(jimViagem);
 
-        jMenuItem6.setText("Next");
+        jMenuItem6.setText("Consulta Viagem");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jmControles.add(jMenuItem6);
 
         jMenuBar1.add(jmControles);
@@ -367,6 +372,10 @@ public class FrmMain extends javax.swing.JFrame {
     private void jimGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimGraficoActionPerformed
         GerenciarJanelas.abreJanela(IfrGrafico.getInstancia());
     }//GEN-LAST:event_jimGraficoActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        GerenciarJanelas.abreJanela(IfrConsultaViagem.getInstancia());
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments

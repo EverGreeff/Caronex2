@@ -26,21 +26,23 @@ import org.hibernate.Transaction;
 public class IfrCadVeiculo extends javax.swing.JInternalFrame {
 
     private static IfrCadVeiculo tela;
-    
+
     String errors;
     int id;
     public static int id_responsavel;
-    
+
     /**
      * Creates new form IfrCadPessoa
      */
     public IfrCadVeiculo() {
         initComponents();
         setTitle("Cadastrar Veiculo");
+        Pesquisas.PesquisaVeiculo(tblVeiculos, "");
+
         id = -1;
-        
+
     }
-    
+
     public static IfrCadVeiculo getInstancia() {
         if (tela == null) {
             tela = new IfrCadVeiculo();
@@ -362,7 +364,7 @@ public class IfrCadVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPlacaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(validaInsert()) {
+        if (validaInsert()) {
             Session sessao = null;
             try {
                 sessao = HibernateUtil.getSessionFactory().openSession();
@@ -381,7 +383,7 @@ public class IfrCadVeiculo extends javax.swing.JInternalFrame {
                 } else {
                     sessao.save(veiculo);
                 }
-                
+
                 transacao.commit();
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
             } catch (HibernateException hibEx) {
@@ -393,10 +395,10 @@ public class IfrCadVeiculo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Favor, verifique os dados");
             errors = "";
         }
-        
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         fechaTela();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -407,7 +409,7 @@ public class IfrCadVeiculo extends javax.swing.JInternalFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         Pesquisas.PesquisaVeiculo(tblVeiculos, txtCampoPesquisa.getText());
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -420,9 +422,9 @@ public class IfrCadVeiculo extends javax.swing.JInternalFrame {
         Session sessao = null;
         sessao = HibernateUtil.getSessionFactory().openSession();
         try {
-            
+
             Transaction transacao = sessao.beginTransaction();
-          
+
             Veiculo veiculo = (Veiculo) sessao.get(Veiculo.class, id);
             txtPlaca.setText(veiculo.getPlaca());
             txtKml.setText(String.valueOf(veiculo.getKml()));
@@ -431,7 +433,6 @@ public class IfrCadVeiculo extends javax.swing.JInternalFrame {
             txtModelo.setText(veiculo.getModelo());
             txtCor.setText(String.valueOf(veiculo.getCor()));
 
-            
         } catch (HibernateException hibEx) {
             hibEx.printStackTrace();
         } finally {
@@ -442,45 +443,44 @@ public class IfrCadVeiculo extends javax.swing.JInternalFrame {
     public boolean validaInsert() {
         String replaced = "";
         errors = "";
-        
+
         //Nome
         if (txtPlaca.getText().length() == 0) {
             errors += "Preencha o nome - ";
         }
-        
+
         //KML
         if (txtKml.getText().length() == 0) {
             errors += "Preencha a KML - ";
             //existe validador de e-mail??
         }
-        
+
         //txtvalor_disp_km
         if (txtvalor_disp_km.getText().length() == 0) {
             errors += "Preencha o valor_disp_km - ";
             //existe validador de e-mail??
         }
-        
+
         //txtMarca
         if (txtMarca.getText().length() == 0) {
             errors += "Preencha a Marca - ";
             //existe validador de e-mail??
         }
-        
+
         //txtModelo
         if (txtModelo.getText().length() == 0) {
             errors += "Preencha o Modelo - ";
             //existe validador de e-mail??
         }
-        
+
         //txtCor
         if (txtCor.getText().length() == 0) {
             errors += "Preencha a COR";
             //existe validador de e-mail??
         }
-        
-        
+
         return errors.equals("");
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -520,5 +520,3 @@ public class IfrCadVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtvalor_disp_km;
     // End of variables declaration//GEN-END:variables
 }
-
-

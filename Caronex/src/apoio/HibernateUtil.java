@@ -1,54 +1,53 @@
+
 package apoio;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
 
-    // declare um objeto do tipo SessionFactory
+    private static StandardServiceRegistry registry;
+    private static SessionFactory sessionFactory;
 
-    /* Mas pq o atributo é static?
-     * declare como static para que vc possa chamar esse método mesmo sem ter uma instância
-     * da classe HibernateUtil, conceito básico de encapsulamento.
-     */
-    // ops não esqueça de importar do pacote correto heim
-    // deve ser o pacote org.hibernate
-    public static SessionFactory sessionFactory;
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            try {
+                // Cria o registro
+                //Para saber mais
+                //https://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/boot/registry/class-use/StandardServiceRegistry.html
+                registry = new StandardServiceRegistryBuilder().configure().build();
 
-    public HibernateUtil() {
+                // Cria oMetadataSources
+                //para saber mais
+                //https://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/boot/MetadataSources.html
+                MetadataSources sources = new MetadataSources(registry);
+
+                // Create Metadata
+                //para saber mais
+                //https://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/boot/Metadata.html
+                Metadata metadata = sources.getMetadataBuilder().build();
+
+                // Create SessionFactory
+                //para saber mais
+                //https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/SessionFactory.html
+                sessionFactory = metadata.getSessionFactoryBuilder().build();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (registry != null) {
+                    StandardServiceRegistryBuilder.destroy(registry);
+                }
+            }
+        }
+        return sessionFactory;
     }
 
-    /*vamos criar um método que retorne a nossa sessionFactory aberta
-     *esse método tb deve ser static, pois um atributo static só pode ser visto
-     * por um método tb static
-     */
-    public static SessionFactory getSessionFactory() {
-        // verificar se nossa session é null, se for passar a configuração e abrir
-        if (sessionFactory == null) {
-            // por favor dentro de try e catch para tratarmos o erro se ocorrer 
-            try {
-                // instanciar o objeto para receber a configuração
-                AnnotationConfiguration annotation = new AnnotationConfiguration();
-                // vamos pedir para ler a configuração e abrir a sessão
-                sessionFactory = annotation.configure().buildSessionFactory();
-
-            } catch (Throwable ex) {
-                /* Throwable é o pai de todas as excessões então qualquer 
-                 * excessão que ocorrer será tratada
-                 */
-                System.out.println("Erro ao inicar o Hibernte " + ex);
-                throw new ExceptionInInitializerError(ex);
-            }
-            // se td der certo retorna a sessao aberta
-            return sessionFactory;
-
-        } else {
-            return sessionFactory;
+    public static void fecharConexoes() {
+        if (registry != null) {
+            StandardServiceRegistryBuilder.destroy(registry);
         }
     }
 }

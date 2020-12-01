@@ -23,24 +23,24 @@ import org.hibernate.Transaction;
 public class IfrCadLogin extends javax.swing.JInternalFrame {
 
     private static IfrCadLogin tela;
-    
+
     public static int id_admin;
-    
+
     /**
      * Creates new form IfrCadPessoa
      */
     public IfrCadLogin() {
         initComponents();
         this.setTitle("Cadastrar Usuarios");
-        
+        Pesquisas.PesquisaUsuario(tblLogin, " ");
         ctxtTipoPessoa.removeAllItems();
         ctxtTipoPessoa.addItem("");
         ctxtTipoPessoa.addItem("Administrador");
         ctxtTipoPessoa.addItem("Organizador");
         ctxtTipoPessoa.addItem("Passageiro");
-        
+
     }
-    
+
     public static IfrCadLogin getInstancia() {
         if (tela == null) {
             tela = new IfrCadLogin();
@@ -52,8 +52,6 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
         GerenciarJanelas.fecharJanela(tela);
         tela = null;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -326,28 +324,28 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String item = (String) ctxtTipoPessoa.getSelectedItem();
         Session sessao = null;
-            try {
-                sessao = HibernateUtil.getSessionFactory().openSession();
-                Transaction transacao = sessao.beginTransaction();
-                Login login = new Login();
-                login.setLogin(txtLogin.getText());
-                login.setSenha(Criptografia.criptoMD5(txtSenha.getText()));
-                login.setStatus("A");
-                login.setId_pessuser(id_admin);
-                login.setTipo_usuario(item);
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction transacao = sessao.beginTransaction();
+            Login login = new Login();
+            login.setLogin(txtLogin.getText());
+            login.setSenha(Criptografia.criptoMD5(txtSenha.getText()));
+            login.setStatus("A");
+            login.setId_pessuser(id_admin);
+            login.setTipo_usuario(item);
 
-                sessao.save(login);
-                transacao.commit();
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-            } catch (HibernateException hibEx) {
-                hibEx.printStackTrace();
-            } finally {
+            sessao.save(login);
+            transacao.commit();
+            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+        } catch (HibernateException hibEx) {
+            hibEx.printStackTrace();
+        } finally {
             sessao.close();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void ctxtTipoPessoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ctxtTipoPessoaItemStateChanged
-        
+
     }//GEN-LAST:event_ctxtTipoPessoaItemStateChanged
 
     private void ctxtTipoPessoaCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_ctxtTipoPessoaCaretPositionChanged
@@ -368,7 +366,7 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         Pesquisas.PesquisaUsuario(tblLogin, txtCampoPesquisa.getText());
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -376,18 +374,18 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     public void trazerPessoa(Pessoa pessoa) {
         id_admin = pessoa.getId_pessoa();
         txtUsuario.setText(pessoa.getNome());
     }
-    
+
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         DlgPessoas dlgPessoas = new DlgPessoas(null, true, txtUsuario.getText(), this);
         dlgPessoas.setVisible(true);
@@ -421,5 +419,3 @@ public class IfrCadLogin extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
-
-

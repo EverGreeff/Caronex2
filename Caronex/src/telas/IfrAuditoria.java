@@ -35,7 +35,9 @@ public class IfrAuditoria extends javax.swing.JInternalFrame {
      */
     public IfrAuditoria() {
         initComponents();
+        Pesquisas.PesquisaAuditoriaDois(tAuditoria, "", "");
         Formatacao.formatarData(ftfData1);
+        Formatacao.formatarData(ftfData2);
     }
 
     public static IfrAuditoria getInstancia(String tipoUser) {

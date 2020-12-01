@@ -142,6 +142,73 @@ public class Pesquisas {
         }
     }
 
+    public static void PesquisaViagens(JTable tabela, int idViagem) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        List<Viagem> resultado = new ArrayList();
+        String sql = "FROM Viagem "
+                + "WHERE status != 'X'"
+                + "ORDER BY data_viagem";
+        //padroniza a JTable
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        String[] headers = {"ID", "data_viagem", "valor_viagem", "km_viagem", "horas_viagem", "id_veiculo", "id_grupo", "status"};
+        int[] widths = {30, 100, 100, 100, 100, 100, 100, 100};
+
+        for (int i = 0; i < headers.length; i++) {
+            //centraliza
+            tabela.getColumnModel().getColumn(i).setCellRenderer(centralizado);
+            //seta a largura
+            tabela.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
+            //seta o header
+            tabela.getColumnModel().getColumn(i).setHeaderValue(headers[i]);
+        }
+
+        //verificar o getColumn(não pode ter o numero maior do que o Num de Colunas
+        /*tabela.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tabela.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(140);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(40);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(40);
+        //
+        
+        tabela.getColumnModel().getColumn(0).setHeaderValue(headers[0]);
+        tabela.getColumnModel().getColumn(1).setHeaderValue(headers[1]);
+        tabela.getColumnModel().getColumn(2).setHeaderValue(headers[2]);
+        tabela.getColumnModel().getColumn(3).setHeaderValue(headers[3]);*/
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        //fim Jtable
+        //começa IO
+        try {
+            org.hibernate.Query query = sessao.createQuery(sql);
+            resultado = query.list();
+            for (int i = 0; i < resultado.size(); i++) {
+                Viagem viagem = resultado.get(i);
+                modelo.addRow(new Object[]{
+                    //"ID", "data_viagem", "valor_viagem", "km_viagem", "horas_viagem", "id_veiculo", "id_grupo", "status"
+                    viagem.getId_viagem(),
+                    viagem.getData_viagem(),
+                    viagem.getValor_viagem(),
+                    viagem.getKm_viagem(),
+                    
+                    viagem.getHoras_viagem(),
+                    viagem.getId_veiculo(),
+                    viagem.getId_grupo(),
+                    viagem.getStatus()
+                });
+            }
+        } catch (HibernateException e) {
+            Log.geraLogBD("admin", "PesquisaViagem", "Viagem", e.toString());
+        } finally {
+            sessao.close();
+        }
+    }
+
     public static void PesquisaGrupoPessoa(JTable tabela, int idGrupo) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Grupo> resultado = new ArrayList();
@@ -451,7 +518,7 @@ public class Pesquisas {
             sessao.close();
         }
     }
-    
+
     public static void PesquisaAuditoriaDois(JTable tabela, String data1, String data2) {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         List<Auditoria> resultado = new ArrayList();
